@@ -41,18 +41,14 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		{
 			global $wpdb, $current_user, $pagenow;
 			
-			// Database rebuild algorithm goes here
 			if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] == $_POST['wp-reset-input'] 
 				&& check_admin_referer('wp-nonce-submit', $this->_nonce) )
 			{
-				// Include the installation file
 				require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 				
-				// Set variables we'll need for wp_install
 				$blog_title = get_option('blogname');
 				$public = get_option('blog_public');
 				
-				// Check for current user and set em up
 				$admin_user = get_userdatabylogin('admin');				
 				$user = ( ! $admin_user || $admin_user->wp_user_level < 10 ) ? $current_user : $admin_user;
 				
@@ -75,14 +71,11 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 				// Update the user with their old password
 				if ( get_user_meta($user_id, 'default_password_nag') ) update_user_meta($user_id, 'default_password_nag', '');
 				
-				// Reactivate the plugin
 				update_option('active_plugins', array(plugin_basename(__FILE__)));
 				
-				// Clear the auth cookie and reset it using the user ID
 				wp_clear_auth_cookie();
 				wp_set_auth_cookie($user_id);
 				
-				// Finally, redirect the user back to the plugin page
 				wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 			}
 		}
