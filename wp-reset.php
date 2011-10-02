@@ -64,11 +64,12 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 				$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);
 				extract($keys, EXTR_SKIP);
 				
-				// Recreate the user for this installation
+				// Set the old password back to the user
 				$query = $wpdb->prepare("UPDATE $wpdb->users SET user_pass = '%s', user_activation_key = '' WHERE ID = '%d'", $user->user_pass, $user_id);
 				$wpdb->query($query);
 				
-				// Update the user with their old password
+				// Set the default_password_nag to nothing 
+				// so it doesn't pop up with the password reminder after installing
 				if ( get_user_meta($user_id, 'default_password_nag') ) update_user_meta($user_id, 'default_password_nag', '');
 				
 				update_option('active_plugins', array(plugin_basename(__FILE__)));
