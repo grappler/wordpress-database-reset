@@ -182,6 +182,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Load language path
 		 *
+		 * @access public
 		 * @return void
 		 */
 		function init_language()
