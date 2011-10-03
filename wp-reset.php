@@ -36,6 +36,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Handles the admin page functionality
 		 *
+		 * @access public
 		 * @uses wp_install Located in includes/upgrade.php (line 22)
 		 */
 		function wp_reset_init()
@@ -76,6 +77,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Displays the admin page
 		 *
+		 * @access public
 		 * @return void
 		 */
 		function show_admin_page()
@@ -118,6 +120,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Add JavaScript to the bottom of the plugin page
 		 *
+		 * @access public
 		 * @return bool TRUE on reset confirmation
 		 */
 		function add_admin_javascript()
@@ -143,6 +146,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Adds our submenu item to the Tools menu
 		 *
+		 * @access public
 		 * @return void
 		 */
 		function add_admin_menu()
@@ -158,6 +162,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		/**
 		 * Adds the contextual help for our plugin page
 		 *
+		 * @access public
 		 * @param $contextual_help Hook text to display
 		 * @param $screen_id ID of the current admin screen
 		 * @return $contextual_help String The help text
@@ -190,6 +195,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		 * an auto-generated password that is sent by email
 		 * right after the installation is complete
 		 *
+		 * @access private
 		 * @return $mail Version with password changed
 		 */
 		function _fix_password_mail($mail)
@@ -212,6 +218,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		 * Updates the user password and clears / sets 
 		 * the authentication cookie for the user
 		 *
+		 * @access private
 		 * @param $user Current or admin user
 		 * @param $keys Array returned by wp_install()
 		 * @return TRUE on install success, FALSE otherwise
