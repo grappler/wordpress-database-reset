@@ -70,7 +70,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 				
 				// Set the default_password_nag to nothing 
 				// so it doesn't pop up with the password reminder after installing
-				if ( get_user_meta($user_id, 'default_password_nag') ) update_user_meta($user_id, 'default_password_nag', '');
+				if ( get_user_meta($user_id, 'default_password_nag') ) delete_user_meta($user_id, 'default_password_nag');
 				
 				update_option('active_plugins', array(plugin_basename(__FILE__)));
 				
