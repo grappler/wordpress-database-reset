@@ -30,6 +30,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
 			add_filter('contextual_help', array($this, 'add_contextual_help'), 10, 2);
+			add_filter('wp_mail', array($this, '_fix_password_mail'));
 		}
 		
 		/**
@@ -182,6 +183,29 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		{
 			$language_dir = basename(dirname(__FILE__)) . '/languages';
 			load_plugin_textdomain('wp-reset', FALSE, $language_dir);
+		}
+		
+		/**
+		 * Changes the password to a sentence rather than
+		 * an auto-generated password that is sent by email
+		 * right after the installation is complete
+		 *
+		 * @return $mail Version with password changed
+		 */
+		function _fix_password_mail($mail)
+		{
+			$subject = __('WordPress Database Reset', 'wp-reset');
+			$message = __('The WordPress database has been successfully reset to its default settings:', 'wp-reset');
+			$password = __('Password: The password you chose during the install.', 'wp-reset');
+						
+			if ( stristr($mail['message'], 'Your new WordPress site has been successfully set up at:') )
+			{
+				$mail['subject'] = preg_replace('/New WordPress Site/', $subject, $mail['subject']);
+				$mail['message'] = preg_replace('/Your new WordPress site has been successfully set up at:+/', $message, $mail['message']);
+				$mail['message'] = preg_replace('/Password:\s.+/', $password, $mail['message']);
+			}
+			
+			return $mail;
 		}
 		
 		/**
