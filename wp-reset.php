@@ -53,31 +53,22 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 				$user = ( ! $admin_user || $admin_user->wp_user_level < 10 ) ? $current_user : $admin_user;
 				
 				// Run through the database columns and drop all the tables
-				$db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'");
-				
-				foreach ( $db_tables as $db_table )
+				if ( $db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'") )
 				{
-					$wpdb->query("DROP TABLE {$db_table}");
+					foreach ( $db_tables as $db_table )
+					{
+						$wpdb->query("DROP TABLE {$db_table}");
+					}
+					
+					// Return user keys and import variables
+					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);					
+					$this->_wp_update_user($user, $keys);
+					
+					// Reactivate the plugin after reinstalling
+					update_option('active_plugins', array(plugin_basename(__FILE__)));
+
+					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 				}
-				
-				// Return user keys and import variables
-				$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);
-				extract($keys, EXTR_SKIP);
-				
-				// Set the old password back to the user
-				$query = $wpdb->prepare("UPDATE $wpdb->users SET user_pass = '%s', user_activation_key = '' WHERE ID = '%d'", $user->user_pass, $user_id);
-				$wpdb->query($query);
-				
-				// Set the default_password_nag to nothing 
-				// so it doesn't pop up with the password reminder after installing
-				if ( get_user_meta($user_id, 'default_password_nag') ) delete_user_meta($user_id, 'default_password_nag');
-				
-				update_option('active_plugins', array(plugin_basename(__FILE__)));
-				
-				wp_clear_auth_cookie();
-				wp_set_auth_cookie($user_id);
-				
-				wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 			}
 		}
 		
@@ -191,6 +182,37 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		{
 			$language_dir = basename(dirname(__FILE__)) . '/languages';
 			load_plugin_textdomain('wp-reset', FALSE, $language_dir);
+		}
+		
+		/**
+		 * Updates the user password and clears / sets 
+		 * the authentication cookie for the user
+		 *
+		 * @param 
+		 * @param $keys Array returned by wp_install()
+		 * @return TRUE on install success, FALSE otherwise
+		 */
+		function _wp_update_user($user, $keys)
+		{
+			global $wpdb;			
+			extract($keys, EXTR_SKIP);
+
+			// Set the old password back to the user
+			$query = $wpdb->prepare("UPDATE $wpdb->users SET user_pass = '%s', user_activation_key = '' WHERE ID = '%d'", $user->user_pass, $user_id);
+			
+			if ( $wpdb->query($query) )
+			{
+				// Set the default_password_nag to nothing 
+				// so it doesn't pop up with the password reminder after installing
+				if ( get_user_meta($user_id, 'default_password_nag') ) delete_user_meta($user_id, 'default_password_nag');
+
+				wp_clear_auth_cookie();
+				wp_set_auth_cookie($user_id);
+				
+				return TRUE;
+			}
+			
+			return FALSE;
 		}
 		
 		/**
