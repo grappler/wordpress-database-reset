@@ -188,7 +188,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		 * Updates the user password and clears / sets 
 		 * the authentication cookie for the user
 		 *
-		 * @param 
+		 * @param $user Current or admin user
 		 * @param $keys Array returned by wp_install()
 		 * @return TRUE on install success, FALSE otherwise
 		 */
