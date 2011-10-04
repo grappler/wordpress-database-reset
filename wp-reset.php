@@ -100,7 +100,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			<div class="wrap">
 				<?php screen_icon() ?>
 				<h2><?php _e('Database Reset', 'wp-reset') ?></h2>
-				<p>Please type in (or copy/paste) the generated value into the text box:&nbsp;&nbsp;<strong><?php echo $random_string ?></strong></p>
+				<p><?php _e('Please type in (or copy/paste) the generated value into the text box', 'wp-reset') ?>:&nbsp;&nbsp;<strong><?php echo $random_string ?></strong></p>
 				<form action="" method="POST" id="wp-reset-form">
 					<?php wp_nonce_field('wp-nonce-submit', $this->_nonce) ?>
 					<input type="hidden" name="wp-random-value" value="<?php echo $random_string ?>" id="wp-random-value" />
