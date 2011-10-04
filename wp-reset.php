@@ -9,9 +9,9 @@ Author URI: https://github.com/chrisberthe
 License: GNU General Public License
 */
 
-if ( ! class_exists('WP_Reset') && is_admin() ) :
+if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 
-	class WP_Reset 
+	class cb_wp_reset
 	{
 		/**
 		 * Nonce value
@@ -297,8 +297,8 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		
 	}
 
-	$wp_reset = new WP_Reset();
+	$cb_wp_reset = new cb_wp_reset();
 	
-	register_activation_hook( __FILE__, array('WP_Reset', 'plugin_activate') );
+	register_activation_hook( __FILE__, array('cb_wp_reset', 'plugin_activate') );
 
 endif;
