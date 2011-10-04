@@ -53,7 +53,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 				$public = get_option('blog_public');
 				
 				$admin_user = get_userdatabylogin('admin');				
-				$user = ( ! $admin_user || $admin_user->wp_user_level < 10 ) ? $current_user : $admin_user;
+				$user = ( ! $admin_user || user_can( $admin_user->ID, 'update_core' ) ) ? $current_user : $admin_user;
 				
 				// Run through the database columns and drop all the tables
 				if ( $db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'") )
@@ -108,7 +108,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 					<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
 				</form>
 				
-				<?php if ( ! $admin_user || $admin_user->wp_user_level < 10 ) : ?>
+				<?php if ( ! $admin_user || user_can( $admin_user->ID, 'update_core' ) : ?>
 					<p style="margin-top: 25px"><?php printf(__('The default user <strong><u>admin</u></strong> was never created for this WordPress install. So <strong><u>%s</u></strong> will be recreated with its current password instead', 'wp-reset'), $current_user->user_login) ?>.</p>
 				<?php else : ?>
 					<p><?php _e('The default user <strong><u>admin</u></strong> will be recreated with its current password upon resetting', 'wp-reset') ?>.</p>
@@ -154,7 +154,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		{
 			global $current_user;
 			
-			if ( current_user_can('update_core') && $current_user->wp_user_level == 10)
+			if ( user_can( $current_user->ID, 'update_core' ) )
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
 			}
