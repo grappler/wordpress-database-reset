@@ -27,6 +27,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		{
 			add_action('init', array($this, 'init_language'));
 			add_action('admin_init', array($this, 'wp_reset_init'));
+			add_action('admin_init', array($this, '_redirect_user'));
 			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
 			add_filter('contextual_help', array($this, 'add_contextual_help'), 10, 2);
@@ -192,6 +193,32 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 		}
 		
 		/**
+		 * For activation hook
+		 *
+		 * @access public
+		 * @return void
+		 */
+		function plugin_activate()
+		{
+			add_option('wp-reset-activated', true);
+		}
+		
+		/**
+		 * Redirects the user after the plugin is activated
+		 *
+		 * @access private
+		 * @return void
+		 */
+		function _redirect_user()
+		{
+			if ( get_option('wp-reset-activated', false) )
+			{
+				delete_option('wp-reset-activated');
+				wp_redirect(admin_url('tools.php') . '?page=wp-reset');
+			}
+		}
+		
+		/**
 		 * Changes the password to a sentence rather than
 		 * an auto-generated password that is sent by email
 		 * right after the installation is complete
@@ -271,5 +298,7 @@ if ( ! class_exists('WP_Reset') && is_admin() ) :
 	}
 
 	$wp_reset = new WP_Reset();
+	
+	register_activation_hook( __FILE__, array('WP_Reset', 'plugin_activate') );
 
 endif;
