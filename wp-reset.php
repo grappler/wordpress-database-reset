@@ -68,9 +68,14 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					$this->_wp_update_user($user, $keys);
 					
 					// Reactivate the plugin after reinstalling
-					update_option('active_plugins', array(plugin_basename(__FILE__)));
-
-					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
+					if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
+					{
+						update_option('active_plugins', array(plugin_basename(__FILE__)));
+						wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
+					}
+					
+					// If the wp-reset-check isn't checked just redirect user to dashboard
+					wp_redirect(admin_url()); exit();
 				}
 			}
 		}
@@ -106,6 +111,12 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<input type="hidden" name="wp-random-value" value="<?php echo $random_string ?>" id="wp-random-value" />
 					<input type="text" name="wp-reset-input" value="" id="wp-reset-input" />
 					<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
+					<p>
+						<label for="wp-reset-check">
+							<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
+						<?php _e('Reactivate plugin after resetting?', 'wp-reset') ?>
+						</label>
+					</p>
 				</form>
 				
 				<?php if ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) : ?>
@@ -114,7 +125,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<p><?php _e('The default user <strong><u>admin</u></strong> will be recreated with its current password upon resetting', 'wp-reset') ?>.</p>
 				<?php endif; ?>
 				
-				<p><?php _e('Note that once you reset the database, all users will be deleted except the initial admin user. The plugin will also reactivate itself after resetting', 'wp-reset') ?>.</p>
+				<p><?php _e('Note that once you reset the database, all users will be deleted except the initial admin user.', 'wp-reset') ?></p>
 			</div>
 <?php	}
 		
