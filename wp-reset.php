@@ -53,7 +53,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				$public = get_option('blog_public');
 				
 				$admin_user = get_userdatabylogin('admin');				
-				$user = ( ! $admin_user || user_can( $admin_user->ID, 'update_core' ) ) ? $current_user : $admin_user;
+				$user = ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) ? $current_user : $admin_user;
 				
 				// Run through the database columns and drop all the tables
 				if ( $db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'") )
