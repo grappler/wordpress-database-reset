@@ -31,7 +31,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
 			add_filter('contextual_help', array($this, 'add_contextual_help'), 10, 2);
-			add_filter('wp_mail', array($this, '_fix_password_mail'));
+			add_filter('wp_mail', array($this, '_fix_mail'));
 		}
 		
 		/**
@@ -64,7 +64,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					}
 					
 					// Return user keys and import variables
-					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);					
+					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);			
 					$this->_wp_update_user($user, $keys);
 					
 					// Reactivate the plugin after reinstalling
@@ -235,7 +235,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		 * @access private
 		 * @return $mail Version with password changed
 		 */
-		function _fix_password_mail($mail)
+		function _fix_mail($mail)
 		{
 			$subject = __('WordPress Database Reset', 'wp-reset');
 			$message = __('The WordPress database has been successfully reset to its default settings:', 'wp-reset');
