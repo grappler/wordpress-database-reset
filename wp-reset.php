@@ -108,7 +108,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
 				</form>
 				
-				<?php if ( ! $admin_user || user_can( $admin_user->ID, 'update_core' ) ) : ?>
+				<?php if ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) : ?>
 					<p style="margin-top: 25px"><?php printf(__('The default user <strong><u>admin</u></strong> was never created for this WordPress install. So <strong><u>%s</u></strong> will be recreated with its current password instead', 'wp-reset'), $current_user->user_login) ?>.</p>
 				<?php else : ?>
 					<p><?php _e('The default user <strong><u>admin</u></strong> will be recreated with its current password upon resetting', 'wp-reset') ?>.</p>
