@@ -151,10 +151,8 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		 * @return void
 		 */
 		function add_admin_menu()
-		{
-			global $current_user;
-			
-			if ( user_can( $current_user->ID, 'update_core' ) )
+		{			
+			if ( current_user_can( 'update_core' ) )
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
 			}
