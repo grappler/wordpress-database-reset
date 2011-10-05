@@ -66,17 +66,17 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					// Return user keys and import variables
 					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);			
 					$this->_wp_update_user($user, $keys);
-					
-					// Reactivate the plugin after reinstalling
-					if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
-					{
-						update_option('active_plugins', array(plugin_basename(__FILE__)));
-						wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
-					}
-					
-					// If the wp-reset-check isn't checked just redirect user to dashboard
-					wp_redirect(admin_url()); exit();
 				}
+				
+				// Reactivate the plugin after reinstalling
+				if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
+				{
+					update_option('active_plugins', array(plugin_basename(__FILE__)));
+					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
+				}
+				
+				// If the wp-reset-check isn't checked just redirect user to dashboard
+				wp_redirect(admin_url()); exit();
 			}
 		}
 		
