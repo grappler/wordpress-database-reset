@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WordPress Database Reset
-Plugin URI: https://github.com/chrisberthe/wp-reset
+Plugin URI: https://github.com/chrisberthe/wordpress-database-reset
 Description: A plugin that allows you to reset the database to WordPress's initial state.
 Version: 1.3
 Author: Chris Berthe ☻
