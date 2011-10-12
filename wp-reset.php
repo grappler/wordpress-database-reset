@@ -19,6 +19,11 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		private $_nonce = 'wp-reset-nonce';
 		
 		/**
+		 * Plugins to reactivate
+		 */
+		private $_active_plugins;
+		
+		/**
 		 * Loads default options
 		 *
 		 * @return void
@@ -55,6 +60,12 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				$admin_user = get_userdatabylogin('admin');				
 				$user = ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) ? $current_user : $admin_user;
 				
+				// Grab the currently active plugins
+				if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
+				{
+					$this->_active_plugins = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins'));
+				}
+				
 				// Run through the database columns and drop all the tables
 				if ( $db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'") )
 				{
@@ -68,10 +79,9 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					$this->_wp_update_user($user, $keys);
 				}
 				
-				// Reactivate the plugin after reinstalling
-				if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
+				// Reactivate the plugins after reinstalling
+				if ( $this->_reactivate_plugins() )
 				{
-					update_option('active_plugins', array(plugin_basename(__FILE__)));
 					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 				}
 				
@@ -114,7 +124,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<p>
 						<label for="wp-reset-check">
 							<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
-						<?php _e('Reactivate plugin after resetting?', 'wp-reset') ?>
+						<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
 						</label>
 					</p>
 				</form>
@@ -252,6 +262,30 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		}
 		
 		/**
+		 * Reactivates the plugins after reset
+		 *
+		 * @access private
+		 * @return TRUE on plugin reactivation, FALSE otherwise
+		 */
+		function _reactivate_plugins()
+		{
+			global $wpdb;
+			
+			if ( ! empty($this->_active_plugins) )
+			{
+				// Replace the list of plugins with the 'old' list after the reset
+				$query = $wpdb->prepare("UPDATE $wpdb->options SET option_value = %s WHERE option_name = %s", $this->_active_plugins, 'active_plugins');
+				
+				if ( $wpdb->query($query) )
+				{
+					return TRUE;
+				}
+			}
+			
+			return FALSE;
+		}
+		
+		/**
 		 * Updates the user password and clears / sets 
 		 * the authentication cookie for the user
 		 *
@@ -270,7 +304,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			
 			if ( $wpdb->query($query) )
 			{
-				// Set the default_password_nag to nothing 
+				// Delete the default_password_nag 
 				// so it doesn't pop up with the password reminder after installing
 				if ( get_user_meta($user_id, 'default_password_nag') ) delete_user_meta($user_id, 'default_password_nag');
 
