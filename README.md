@@ -1,5 +1,5 @@
-What is WordPress Database Reset?
----------------------------------
+WordPress Database Reset
+------------------------
 
 WordPress Database Reset is a secure and easy way to reinitialize your WordPress 
 database back to its default settings without actually having to reinstall WordPress yourself.
