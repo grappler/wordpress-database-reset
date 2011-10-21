@@ -177,6 +177,8 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
 			}
+			
+			add_action('admin_print_styles-' . $this->_hook, array($this, 'add_plugin_styles'));
 		}
 		
 		/**
@@ -197,6 +199,17 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			}
 			
 			return $contextual_help;
+		}
+		
+		/**
+		 * Adds any plugin styles to our page
+		 *
+		 * @access public
+		 * @return void
+		 */
+		function add_plugin_styles()
+		{
+			wp_enqueue_style('wordpress-reset-css', plugins_url('css/wp-reset.css', __FILE__));
 		}
 		
 		/**
