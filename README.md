@@ -18,7 +18,7 @@ Installation
 ------------
 
 Copy the wordpress-database-reset folder to your wp-content/plugins directory. 
-Activate the plugin. You will then be automatically redirected to the plugin page.
+Activate the plugin. You will then be redirected to the plugin page.
 
 Contributing
 ------------
