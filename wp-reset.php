@@ -52,13 +52,13 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] == $_POST['wp-reset-input'] 
 				&& check_admin_referer('wp-nonce-submit', $this->_nonce) )
 			{
-				require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+				require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
 				
 				$blog_title = get_option('blogname');
 				$public = get_option('blog_public');
 				
 				$admin_user = get_userdatabylogin('admin');				
-				$user = ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) ? $current_user : $admin_user;
+				$user = ( ! $admin_user || ! user_can($admin_user->ID, 'update_core') ) ? $current_user : $admin_user;
 				
 				// Grab the currently active plugins
 				if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
@@ -129,7 +129,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					</p>
 				</form>
 				
-				<?php if ( ! $admin_user || ! user_can( $admin_user->ID, 'update_core' ) ) : ?>
+				<?php if ( ! $admin_user || ! user_can($admin_user->ID, 'update_core') ) : ?>
 					<p style="margin-top: 25px"><?php printf(__('The default user <strong><u>admin</u></strong> was never created for this WordPress install. So <strong><u>%s</u></strong> will be recreated with its current password instead', 'wp-reset'), $current_user->user_login) ?>.</p>
 				<?php else : ?>
 					<p><?php _e('The default user <strong><u>admin</u></strong> will be recreated with its current password upon resetting', 'wp-reset') ?>.</p>
@@ -173,7 +173,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		 */
 		function add_admin_menu()
 		{			
-			if ( current_user_can( 'update_core' ) )
+			if ( current_user_can('update_core') )
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
 			}
