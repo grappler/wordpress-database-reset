@@ -23,7 +23,7 @@
 .bsmList {
   /* html list that contains selected items */
   border-color: #DFDFDF;
-  margin: 0.25em 0 1em 0;
+  margin: 0.25em 0 1.5em 0;
   position: relative;
   display: block;
   padding-left: 0;

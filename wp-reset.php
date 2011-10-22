@@ -120,7 +120,8 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				<h2><?php _e('Database Reset', 'wp-reset') ?></h2>
 				<form action="" method="POST" id="wp-reset-form">
 					<p><?php _e('Please choose from the following database tables the ones you would like to reset', 'wp-reset') ?>:</p>
-					<select id="wp-tables" multiple="multiple" name="tables[]" class="sminit">
+					<span><a href='#' id="select-all"><?php _e('Select All', 'wp-reset') ?></a></span>
+					<select id="wp-tables" multiple="multiple" name="tables[]">
 						<?php foreach ($wp_tables as $key => $value) : ?>
 							<option><?php echo $key ?></option>
 						<?php endforeach ?>
@@ -172,13 +173,16 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				
 				jQuery(function($) {
 					$('#wp-tables').bsmSelect({
+						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
-					}).after($("<a href='#'><?php _e('Select All', 'wp-reset') ?></a>").click(function() {
-						$("#wp-tables").children().attr("selected", "selected").end().change();
+					});
+					
+					jQuery("#select-all").click(function() {
+						jQuery("#wp-tables").children().attr("selected", "selected").end().change();
 						return false;
-					}));
+					});
 				});
 				
 			/* ]]> */
