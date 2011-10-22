@@ -159,20 +159,9 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		{
 ?>
 			<script type="text/javascript">
-			/* <![CDATA[ */
-				jQuery('#wp-reset-submit').click(function() {
-					var message = "<?php _e('Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset') ?>";
-					var reset = confirm(message);
-					
-					if (reset) {
-						jQuery('#wp-reset-form').submit();
-					} else {
-						return false;
-					}
-				});
-				
+			/* <![CDATA[ */				
 				jQuery(function($) {
-					$('#wp-tables').bsmSelect({
+					jQuery('#wp-tables').bsmSelect({
 						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
@@ -182,6 +171,17 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					jQuery("#select-all").click(function() {
 						jQuery("#wp-tables").children().attr("selected", "selected").end().change();
 						return false;
+					});
+					
+					jQuery('#wp-reset-submit').click(function() {
+						var message = "<?php _e('Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset') ?>";
+						var reset = confirm(message);
+
+						if (reset) {
+							jQuery('#wp-reset-form').submit();
+						} else {
+							return false;
+						}
 					});
 				});
 				
