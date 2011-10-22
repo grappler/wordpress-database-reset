@@ -98,10 +98,13 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		 */
 		function show_admin_page()
 		{
-			global $current_user;
+			global $current_user, $wpdb;
 			
 			// Return to see if admin object exists
 			$admin_user = get_userdatabylogin('admin');
+			
+			// Grab the WordPress database tables
+			$wp_tables = $wpdb->tables();
 			
 			// Generate a random value for the input box
 			$random_string = $this->_rand_string();
@@ -115,8 +118,14 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			<div class="wrap">
 				<?php screen_icon() ?>
 				<h2><?php _e('Database Reset', 'wp-reset') ?></h2>
-				<p><?php _e('Please type in (or copy/paste) the generated value into the text box', 'wp-reset') ?>:&nbsp;&nbsp;<strong><?php echo $random_string ?></strong></p>
 				<form action="" method="POST" id="wp-reset-form">
+					<p><?php _e('Please choose from the following database tables the ones you would like to reset', 'wp-reset') ?>:</p>
+					<select id="wp-tables" multiple="multiple" name="tables[]" class="sminit">
+						<?php foreach ($wp_tables as $key => $value) : ?>
+							<option><?php echo $key ?></option>
+						<?php endforeach ?>
+					</select>
+					<p><?php _e('Type in (or copy/paste) the generated value into the text box', 'wp-reset') ?>:&nbsp;&nbsp;<strong><?php echo $random_string ?></strong></p>
 					<?php wp_nonce_field('wp-nonce-submit', $this->_nonce) ?>
 					<input type="hidden" name="wp-random-value" value="<?php echo $random_string ?>" id="wp-random-value" />
 					<input type="text" name="wp-reset-input" value="" id="wp-reset-input" />
@@ -154,12 +163,25 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					var message = "<?php _e('Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset') ?>";
 					var reset = confirm(message);
 					
-					if ( reset ) {
+					if (reset) {
 						jQuery('#wp-reset-form').submit();
 					} else {
 						return false;
 					}
 				});
+				
+				jQuery(function($) {
+					$('#wp-tables').bsmSelect({
+						addItemTarget: 'original',
+						animate: true,
+						title: "<?php _e('Select Table', 'wp-reset') ?>",
+						plugins: [$.bsmSelect.plugins.compatibility()]
+					}).after($("<a href='#'><?php _e('Select All', 'wp-reset') ?></a>").click(function() {
+						$("#wp-tables").children().attr("selected", "selected").end().change();
+						return false;
+					}));
+				});
+				
 			/* ]]> */
 			</script>
 <?php			
@@ -210,6 +232,13 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		function add_plugin_styles_and_scripts()
 		{
 			wp_enqueue_style('wordpress-reset-css', plugins_url('css/wp-reset.css', __FILE__));
+			wp_enqueue_style('bsmselect-css', plugins_url('css/jquery.bsmselect.css', __FILE__));
+			
+			wp_enqueue_script('jquery-color');
+			wp_enqueue_script('jquery-ui-sortable');
+			wp_enqueue_script('bsmselect', plugins_url('js/jquery.bsmselect.js', __FILE__));
+			wp_enqueue_script('bsmselect-compatibility', plugins_url('js/jquery.bsmselect.compatibility.js', __FILE__));
+			wp_enqueue_script('bsmselect-sortable', plugins_url('js/jquery.bsmselect.sortable.js', __FILE__));
 		}
 		
 		/**
