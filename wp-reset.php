@@ -161,24 +161,24 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			<script type="text/javascript">
 			/* <![CDATA[ */				
 				jQuery(function($) {
-					jQuery('#wp-tables').bsmSelect({
+					$('#wp-tables').bsmSelect({
 						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
 					});
 					
-					jQuery("#select-all").click(function() {
-						jQuery("#wp-tables").children().attr("selected", "selected").end().change();
+					$("#select-all").click(function() {
+						$("#wp-tables").children().attr("selected", "selected").end().change();
 						return false;
 					});
 					
-					jQuery('#wp-reset-submit').click(function() {
+					$('#wp-reset-submit').click(function() {
 						var message = "<?php _e('Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset') ?>";
 						var reset = confirm(message);
 
 						if (reset) {
-							jQuery('#wp-reset-form').submit();
+							$('#wp-reset-form').submit();
 						} else {
 							return false;
 						}
