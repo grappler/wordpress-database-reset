@@ -100,6 +100,8 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		{
 			global $current_user, $wpdb;
 			
+			echo '<pre>'; print_r($_POST['tables']); echo '</pre>';
+			
 			// Return to see if admin object exists
 			$admin_user = get_userdatabylogin('admin');
 			
@@ -162,7 +164,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			/* <![CDATA[ */				
 				jQuery(function($) {
 					$('#wp-tables').bsmSelect({
-						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
@@ -184,7 +185,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 						}
 					});
 				});
-				
 			/* ]]> */
 			</script>
 <?php			
