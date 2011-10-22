@@ -172,7 +172,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				
 				jQuery(function($) {
 					$('#wp-tables').bsmSelect({
-						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
@@ -234,8 +233,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			wp_enqueue_style('wordpress-reset-css', plugins_url('css/wp-reset.css', __FILE__));
 			wp_enqueue_style('bsmselect-css', plugins_url('css/jquery.bsmselect.css', __FILE__));
 			
-			wp_enqueue_script('jquery-color');
-			wp_enqueue_script('jquery-ui-sortable');
 			wp_enqueue_script('bsmselect', plugins_url('js/jquery.bsmselect.js', __FILE__));
 			wp_enqueue_script('bsmselect-compatibility', plugins_url('js/jquery.bsmselect.compatibility.js', __FILE__));
 			wp_enqueue_script('bsmselect-sortable', plugins_url('js/jquery.bsmselect.sortable.js', __FILE__));
