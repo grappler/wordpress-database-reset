@@ -348,11 +348,12 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		}
 		
 		/**
-		 * Preserves the SQL of the tables the user
-		 * did not select from the drop-down
+		 * Preserves all the results from the tables the user
+		 * did not select from the drop-down. Also resets these
+		 * results back after reinstalling WordPress.
 		 *
 		 * @access private
-		 * @return mixed Array of backed up data if type backup, boolean if type reset
+		 * @return array Backed up data if type backup, void if reset
 		 */
 		function _backup_tables($tables, $type = 'backup')
 		{
