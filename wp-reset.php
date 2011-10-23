@@ -233,10 +233,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					
 					window.changeHandler = function() {
 					    var op = $("#wp-tables option[value='options']:selected");
-					    if (op.length)
-					        $("#reactivate").show();
-					    else
-					        $("#reactivate").hide();
+					    $('#reactivate').toggle(op.length > 0);
 					}
 				});
 			/* ]]> */
