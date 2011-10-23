@@ -121,15 +121,15 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 						
 						$this->_backup_tables($backup_tables, 'reset');
 					}
-					
-					if ( ! $this->_reactivate_plugins() )
-					{
-						// If the wp-reset-check isn't checked just redirect user to dashboard
-						wp_redirect(admin_url()); exit();
-					}
-					
-					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 				}
+				
+				if ( ! $this->_reactivate_plugins() )
+				{
+					// If the wp-reset-check isn't checked just redirect user to dashboard
+					wp_redirect(admin_url()); exit();
+				}
+				
+				wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 			}
 		}
 		
