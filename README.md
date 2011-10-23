@@ -27,4 +27,10 @@ Contributing does not necessarily mean writing tons of code for the project. It 
 as sending in a plugin suggestion or improvement. If you are having an issue with the plugin,
 you can file the issue to the GitHub [issue page][1]. Have a fix? Pull Request it!
 
+Credits
+-------
+
+[bsmSelect][2] - Better Select Multiple (vicb | Ryan Cramer)
+
 [1]: https://github.com/chrisberthe/wordpress-database-reset/issues
+[2]: https://github.com/vicb/bsmSelect
