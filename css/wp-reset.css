@@ -1,5 +1,8 @@
+#select-buttons {
+	width: 208px;
+}
+
 #select-all {
-	position: absolute;
-	left: 315px;
-	margin-top: 3px;
+	float: right;
+	margin-top: 4px;
 }
