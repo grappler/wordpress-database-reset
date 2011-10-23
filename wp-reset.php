@@ -173,14 +173,15 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<p><?php _e('Type in (or copy/paste) the generated value into the text box', 'wp-reset') ?>:&nbsp;&nbsp;<strong><?php echo $random_string ?></strong></p>
 					<?php wp_nonce_field('wp-nonce-submit', $this->_nonce) ?>
 					<input type="hidden" name="wp-random-value" value="<?php echo $random_string ?>" id="wp-random-value" />
-					<input type="text" name="wp-reset-input" value="" id="wp-reset-input" />
-					<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
-					<p>
-						<label for="wp-reset-check">
-							<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
-						<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
-						</label>
-					</p>
+						<input type="text" name="wp-reset-input" value="" id="wp-reset-input" />
+						<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
+						<img src="<?php echo plugins_url('css/i/ajax-loader.gif', __FILE__) ?>" alt="loader" id="loader" style="display: none" />
+						<p>
+							<label for="wp-reset-check">
+								<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
+							<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
+							</label>
+						</p>
 				</form>
 				
 				<?php if ( ! $admin_user || ! user_can($admin_user->ID, 'update_core') ) : ?>
@@ -222,12 +223,12 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 
 						if (reset) {
 							$('#wp-reset-form').submit();
+							$('#loader').show();
 						} else {
 							return false;
 						}
 					});
 				});
-				
 			/* ]]> */
 			</script>
 <?php			
