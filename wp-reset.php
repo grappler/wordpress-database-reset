@@ -114,7 +114,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					// Reactivate the plugins after reinstalling					
 					$this->_reactivate_plugins();
 					
-					// Delete and Replace tables with the backed up table data
+					// Delete and replace tables with the backed up table data
 					if ( count($this->_tables) > 0 )
 					{
 						foreach ($this->_tables as $table)
@@ -375,7 +375,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					break;
 					
 					case 'reset':
-					// Outter array of tables
+					// Outer array of tables
 					foreach ($tables as $table_name => $table_data)
 					{
 						// Array of table rows
