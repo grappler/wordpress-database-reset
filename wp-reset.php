@@ -206,7 +206,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			/* <![CDATA[ */				
 				jQuery(function($) {
 					$('#wp-tables').bsmSelect({
-						addItemTarget: 'original',
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
