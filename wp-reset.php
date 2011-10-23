@@ -164,7 +164,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<p><?php _e('Please choose from the following database tables the ones you would like to reset', 'wp-reset') ?>:</p>
 					<div id="select-buttons">
 						<span><a href='#' id="select-all"><?php _e('Select All', 'wp-reset') ?></a></span>
-						<select id="wp-tables" multiple="multiple" name="tables[]">
+						<select id="wp-tables" multiple="multiple" name="tables[]" onchange="changeHandler()">
 							<?php foreach ($this->_wp_tables as $key => $value) : ?>
 								<option><?php echo $key ?></option>
 							<?php endforeach ?>
@@ -176,12 +176,14 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					<input type="text" name="wp-reset-input" value="" id="wp-reset-input" />
 					<input type="submit" name="wp-reset-submit" value="<?php _e('Reset Database', 'wp-reset') ?>" id="wp-reset-submit" class="button-primary" />
 					<img src="<?php echo plugins_url('css/i/ajax-loader.gif', __FILE__) ?>" alt="loader" id="loader" style="display: none" />
-					<p>
-						<label for="wp-reset-check">
-							<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
-						<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
-						</label>
-					</p>
+					<div id="reactivate" style="display: none">
+						<p>
+							<label for="wp-reset-check">
+								<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
+							<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
+							</label>
+						</p>
+					</div>
 				</form>
 				
 				<?php if ( ! $admin_user || ! user_can($admin_user->ID, 'update_core') ) : ?>
@@ -228,6 +230,14 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 							return false;
 						}
 					});
+					
+					window.changeHandler = function() {
+					    var op = $("#wp-tables option[value='options']:selected");
+					    if (op.length)
+					        $("#reactivate").show();
+					    else
+					        $("#reactivate").hide();
+					}
 				});
 			/* ]]> */
 			</script>
