@@ -43,6 +43,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			add_action('init', array($this, 'init_language'));
 			add_action('admin_init', array($this, 'wp_reset_init'));
 			add_action('admin_init', array($this, '_redirect_user'));
+			add_action('admin_init', array($this, 'add_plugin_styles_and_scripts'));
 			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
 			add_filter('contextual_help', array($this, 'add_contextual_help'), 10, 2);
@@ -255,8 +256,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
 			}
-			
-			add_action('admin_print_styles-' . $this->_hook, array($this, 'add_plugin_styles_and_scripts'));
 		}
 		
 		/**
