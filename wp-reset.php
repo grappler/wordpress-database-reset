@@ -110,26 +110,28 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					// Return user keys and import variables
 					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);
 					$this->_wp_update_user($user, $keys);
+				}
 					
-					// Delete and replace tables with the backed up table data
-					if ( count($this->_tables) > 0 )
-					{
-						foreach ($this->_tables as $table)
-						{
-							$wpdb->query("DELETE FROM " . $table);
-						}
-						
-						$this->_backup_tables($backup_tables, 'reset');
-					}
-				}
-				
-				if ( ! $this->_reactivate_plugins() )
+				// Delete and replace tables with the backed up table data
+				if ( count($this->_tables) > 0 )
 				{
-					// If the wp-reset-check isn't checked just redirect user to dashboard
-					wp_redirect(admin_url()); exit();
+					foreach ($this->_tables as $table)
+					{
+						$wpdb->query("DELETE FROM " . $table);
+					}
+					
+					$this->_backup_tables($backup_tables, 'reset');
 				}
 				
-				wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
+				if ( ! empty($this->_active_plugins) )
+				{
+					$wpdb->update($wpdb->options, array('option_value' => $this->_active_plugins), array('option_name' => 'active_plugins'));
+					
+					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
+				}
+				
+				// If the wp-reset-check isn't checked just redirect user to dashboard
+				wp_redirect(admin_url()); exit();
 			}
 		}
 		
@@ -342,7 +344,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		function _fix_mail($mail)
 		{
 			$subject = __('WordPress Database Reset', 'wp-reset');
-			$message = __('The WordPress database has been successfully reset to its default settings:', 'wp-reset');
+			$message = __('The tables you selected have been successfully reset to their default settings:', 'wp-reset');
 			$password = __('Password: The password you chose during the install.', 'wp-reset');
 						
 			if ( stristr($mail['message'], 'Your new WordPress site has been successfully set up at:') )
@@ -406,30 +408,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			}
 			
 			return;
-		}
-		
-		/**
-		 * Reactivates the plugins after reset
-		 *
-		 * @access private
-		 * @return TRUE on plugin reactivation, FALSE otherwise
-		 */
-		function _reactivate_plugins()
-		{
-			global $wpdb;
-			
-			if ( ! empty($this->_active_plugins) )
-			{
-				// Replace the list of plugins with the 'old' list after the reset
-				$query = $wpdb->prepare("UPDATE $wpdb->options SET option_value = %s WHERE option_name = %s", $this->_active_plugins, 'active_plugins');
-				
-				if ( $wpdb->query($query) )
-				{
-					return TRUE;
-				}
-			}
-			
-			return FALSE;
 		}
 		
 		/**
