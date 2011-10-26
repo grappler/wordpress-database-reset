@@ -19,11 +19,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		private $_nonce = 'wp-reset-nonce';
 		
 		/**
-		 * Plugins to reactivate
-		 */
-		private $_active_plugins;
-		
-		/**
 		 * Tables to preserve
 		 */
 		private $_tables;
@@ -97,7 +92,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				// Grab the currently active plugins
 				if ( isset($_POST['wp-reset-check']) && $_POST['wp-reset-check'] == 'true' )
 				{
-					$this->_active_plugins = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins'));
+					$active_plugins = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins'));
 				}
 				
 				// Run through the database columns and drop all the tables
@@ -124,9 +119,9 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					$this->_backup_tables($backup_tables, 'reset');
 				}
 				
-				if ( ! empty($this->_active_plugins) )
+				if ( ! empty($active_plugins) )
 				{
-					$wpdb->update($wpdb->options, array('option_value' => $this->_active_plugins), array('option_name' => 'active_plugins'));
+					$wpdb->update($wpdb->options, array('option_value' => $active_plugins), array('option_name' => 'active_plugins'));
 					
 					wp_redirect(admin_url($pagenow) . '?page=wp-reset&reset=success'); exit();
 				}
