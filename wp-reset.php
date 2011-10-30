@@ -286,7 +286,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			
 			wp_enqueue_script('bsmselect', plugins_url('js/jquery.bsmselect.js', __FILE__));
 			wp_enqueue_script('bsmselect-compatibility', plugins_url('js/jquery.bsmselect.compatibility.js', __FILE__));
-			wp_enqueue_script('bsmselect-sortable', plugins_url('js/jquery.bsmselect.sortable.js', __FILE__));
 		}
 		
 		/**
