@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Database Reset\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-08 02:00-0300\n"
+"PO-Revision-Date: 2011-11-08 06:20-0300\n"
+"Last-Translator: Fernando Lopes <contato@fernandolopes.com.br>\n"
+"Language-Team: Fernando Lopes <contato@fernandolopes.com.br>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: wp-reset.php:156
+#: ../wordpress-database-reset/wp-reset.php:156
+msgid "You entered the wrong value - please try again"
+msgstr "Você digitou o valor errado - por favor tente novamente"
+
+#: wp-reset.php:158
+#: ../wordpress-database-reset/wp-reset.php:158
+msgid "You did not select any database tables"
+msgstr "Você não selecionou nenhuma tabela do banco de dados"
+
+#: wp-reset.php:160
+#: ../wordpress-database-reset/wp-reset.php:160
+msgid "The WordPress database has been reset successfully"
+msgstr "O banco de dados do WordPress foi reiniciado com sucesso"
+
+#: wp-reset.php:165
+#: ../wordpress-database-reset/wp-reset.php:165
+msgid "Database Reset"
+msgstr "Reiniciar Banco de Dados"
+
+#: wp-reset.php:167
+#: ../wordpress-database-reset/wp-reset.php:167
+msgid "Please choose from the following database tables the ones you would like to reset"
+msgstr "Por favor, escolha a partir das tabelas do banco de dados abaixo o que você gostaria de reiniciar"
+
+#: wp-reset.php:169
+#: ../wordpress-database-reset/wp-reset.php:169
+msgid "Select All"
+msgstr "Selecionar Tudas"
+
+#: wp-reset.php:176
+#: ../wordpress-database-reset/wp-reset.php:176
+msgid "Type in (or copy/paste) the generated value into the text box"
+msgstr "Digite (ou copie/cole) o valor gerado na caixa de texto"
+
+#: wp-reset.php:180
+#: ../wordpress-database-reset/wp-reset.php:180
+msgid "Reset Database"
+msgstr "Reiniciar Banco de Dados"
+
+#: wp-reset.php:186
+#: ../wordpress-database-reset/wp-reset.php:186
+msgid "Reactivate current plugins after reset?"
+msgstr "Reativar os plugins atuais depois de reiniciar?"
+
+#: wp-reset.php:193
+#: ../wordpress-database-reset/wp-reset.php:193
+#, php-format
+msgid "The default user <strong><u>admin</u></strong> was never created for this WordPress install. So <strong><u>%s</u></strong> will be recreated with its current password instead"
+msgstr "O usuário padrão <strong><u>admin</u></strong>, nunca foi criado nesta instalação do WordPress. Então, o usuário <strong><u>%s</u></strong> será recriado com a sua senha atual"
+
+#: wp-reset.php:195
+#: ../wordpress-database-reset/wp-reset.php:195
+msgid "The default user <strong><u>admin</u></strong> will be recreated with its current password upon resetting"
+msgstr "O usuário padrão <strong><u>admin</u></strong> será recriado com sua senha atual mediante a reinicialização"
+
+#: wp-reset.php:198
+#: ../wordpress-database-reset/wp-reset.php:198
+msgid "Note that once you reset the database, all users will be deleted except the initial admin user."
+msgstr "Note que, uma vez que você reiniciar o banco de dados, todos os usuários serão apagados, exceto o usuário <strong><u>admin</u></strong> inicial."
+
+#: wp-reset.php:216
+#: ../wordpress-database-reset/wp-reset.php:216
+msgid "Select Table"
+msgstr "Selecionar Tabela"
+
+#: wp-reset.php:226
+#: ../wordpress-database-reset/wp-reset.php:226
+msgid "Clicking OK will result in your database being reset to its initial settings. Continue?"
+msgstr "Clicar em OK fará com que o banco de dados seja reiniciado para as configurações iniciais. Continuar?"
+
+#: wp-reset.php:273
+#: ../wordpress-database-reset/wp-reset.php:273
+msgid "Have any cool ideas for this plugin? Contact me either by <a href=\"http://twitter.com/#!/chrisberthe\">Twitter</a> or by <a href=\"https://github.com/chrisberthe\">GitHub</a>."
+msgstr "Tem alguma idéia legal para este plugin? Entre em contato comigo pelo <a href=\"http://twitter.com/#!/chrisberthe\">Twitter</a> ou pelo <a href=\"https://github.com/chrisberthe\">GitHub</a>."
+
+#: wp-reset.php:274
+#: ../wordpress-database-reset/wp-reset.php:274
+msgid "If this plugin becomes non-functional in any way due to WordPress upgrades, rest assured I will update it."
+msgstr "Se este plugin se tornar não-funcional de alguma forma devido a upgrades WordPress, eu vou atualizá-lo."
+
+#: wp-reset.php:275
+#: ../wordpress-database-reset/wp-reset.php:275
+msgid "Goodbye for now."
+msgstr "Adeus por agora."
+
+#: wp-reset.php:345
+#: ../wordpress-database-reset/wp-reset.php:345
+msgid "WordPress Database Reset"
+msgstr "WordPress Reiniciar Banco de Dados"
+
+#: wp-reset.php:346
+#: ../wordpress-database-reset/wp-reset.php:346
+msgid "The tables you selected have been successfully reset to their default settings:"
+msgstr "As tabelas selecionadas foram reiniciadas com sucesso para suas configurações padrão:"
+
+#: wp-reset.php:347
+#: ../wordpress-database-reset/wp-reset.php:347
+msgid "Password: The password you chose during the install."
+msgstr "Senha: A senha que você escolheu durante a instalação."
+
