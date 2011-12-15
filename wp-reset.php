@@ -74,7 +74,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				$blog_title = get_option('blogname');
 				$public = get_option('blog_public');
 
-				$admin_user = get_userdatabylogin('admin');
+				$admin_user = get_user_by('login', 'admin');
 				$user = ( ! $admin_user || ! user_can($admin_user->ID, 'update_core') ) ? $current_user : $admin_user;
 				
 				// Get the selected tables
@@ -142,7 +142,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			global $current_user;
 			
 			// Return to see if admin object exists
-			$admin_user = get_userdatabylogin('admin');
+			$admin_user = get_user_by('login', 'admin');
 			
 			// Generate a random value for the input box
 			$random_string = $this->_rand_string();
