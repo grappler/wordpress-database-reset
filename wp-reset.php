@@ -232,7 +232,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 						}
 					});
 					
-					window.changeHandler = function() {
+					W.changeHandler = function() {
 					    var op = $("#wp-tables option[value='options']:selected");
 					    $('#reactivate').toggle(op.length > 0);
 					}
