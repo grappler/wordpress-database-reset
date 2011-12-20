@@ -205,7 +205,10 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 ?>
 			<script type="text/javascript">
 			/* <![CDATA[ */				
-				jQuery(function($) {
+				(function(window, $) {
+					
+					var W = $(window);
+					
 					$('#wp-tables').bsmSelect({
 						animate: true,
 						title: "<?php _e('Select Table', 'wp-reset') ?>",
@@ -233,7 +236,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					    var op = $("#wp-tables option[value='options']:selected");
 					    $('#reactivate').toggle(op.length > 0);
 					}
-				});
+				})(window, jQuery);
 			/* ]]> */
 			</script>
 <?php			
