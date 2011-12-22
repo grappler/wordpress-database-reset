@@ -240,6 +240,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 					    var op = $("#wp-tables option[value='options']:selected");
 					    $('#reactivate').toggle(op.length > 0);
 					}
+					
 				})(window, jQuery);
 			/* ]]> */
 			</script>
