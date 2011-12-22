@@ -29,6 +29,11 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 		private $_wp_tables;
 		
 		/**
+		 * WordPress screen object
+		 */
+		private $_admin_screen;
+		
+		/**
 		 * Loads default options
 		 *
 		 * @return void
@@ -41,7 +46,6 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			add_action('admin_init', array($this, 'add_plugin_styles_and_scripts'));
 			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
-			add_filter('contextual_help', array($this, 'add_contextual_help'), 10, 2);
 			add_filter('wp_mail', array($this, '_fix_mail'));
 		}
 		
@@ -253,27 +257,49 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			if ( current_user_can('update_core') )
 			{
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
+				
+				add_action('load-' . $this->_hook, array($this, '_add_help_screen'));
 			}
 		}
 		
 		/**
-		 * Adds the contextual help for our plugin page
+		 * Adds v3.3 style help menu for plugin page
 		 *
-		 * @access public
-		 * @param $contextual_help Hook text to display
-		 * @param $screen_id ID of the current admin screen
-		 * @return $contextual_help String The help text
+		 * @access private
+		 * @return void
 		 */
-		function add_contextual_help($contextual_help, $screen_id)
-		{			
-			if ($screen_id == $this->_hook)
-			{
-				$contextual_help = '<p>' . __('Have any cool ideas for this plugin? Contact me either by <a href="http://twitter.com/#!/chrisberthe">Twitter</a> or by <a href="https://github.com/chrisberthe">GitHub</a>.', 'wp-reset') . '</p>';
-				$contextual_help .= '<p>' . __('If this plugin becomes non-functional in any way due to WordPress upgrades, rest assured I will update it.', 'wp-reset') . '</p>';
-				$contextual_help .= '<p>' . __('Goodbye for now.', 'wp-reset') . '</p>';
-			}
+		function _add_help_screen()
+		{
+			$this->_admin_screen = get_current_screen();
 			
-			return $contextual_help;
+			$help = '<p>' . __( 'Thank you for downloading the WordPress Database Reset plugin.' ) . '</p>';
+			$help .= '<p>' . __( 'This plugin allows you to securely and easily reinitialize the WordPress database back to its default settings without actually having to reinstall WordPress from scratch. This plugin will come in handy for both theme and plugin developers. Two possible use case scenarios would be to:') . '</p>';
+			$help .= '<p>' . __( '<strong>1.</strong> Erase excess junk in the <code>wp_options</code> table that accumulates over time.<br /><strong>2.</strong> Revert back to a fresh install of the WordPress database after experimenting with various back-end options.' ) . '</p>';
+			$help .= '<p>' . __( 'You can learn more on how to use this plugin by clicking the <code>Instructions</code> tab to the left.' ) . '</p>';
+
+			$this->_admin_screen->add_help_tab( array(
+				'id'      => 'overview',
+				'title'   => __( 'Overview' ),
+				'content' => $help,
+			) );
+			
+			$help = '<p>' . __( 'Performing a database reset is quite straightforward.' ) . '</p>';
+			$help .= '<p>' . __( 'Select the different tables you would like to reinitialize from the drop down list. You can select any number of tables. If you know you would like to reset the entire database, simply click the <code>Select All</code> button.' ) . '</p>';
+			$help .= '<p>' . __( 'Next you will have to enter the <code>auto generated value</code> into the text box. Clicking on the <code>Reset Database</code> button will result in a pop-up.' ) . '</p>';
+			$help .= '<p>' . __( 'Once you are sure you would like to proceed, click <code>OK</code> to reset.' ) . '</p>';
+			
+			$this->_admin_screen->add_help_tab( array(
+				'id'      => 'instructions',
+				'title'   => __( 'Instructions' ),
+				'content' => $help,
+			) );
+			
+			unset($help);
+			
+			$this->_admin_screen->set_help_sidebar(
+				'<p><strong>' . __( 'Contact information:' ) . '</strong></p>' .
+				'<p>' . __( 'Any ideas on features or ways to improve this plugin? Contact me at <a href="http://github.com/chrisberthe/" target="_blank">GitHub</a> or <a href="http://twitter.com/chrisberthe/" target="_blank">Twitter</a>.' ) . '</p>'
+			);
 		}
 		
 		/**
