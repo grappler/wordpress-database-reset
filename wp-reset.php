@@ -209,9 +209,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 ?>
 			<script type="text/javascript">
 			/* <![CDATA[ */				
-				(function(window, $) {
-					
-					var W = window;
+				(function($) {
 					
 					$('#wp-tables').bsmSelect({
 						animate: true,
@@ -236,12 +234,12 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 						}
 					});
 					
-					W.changeHandler = function() {
+					window.changeHandler = function() {
 					    var op = $("#wp-tables option[value='options']:selected");
 					    $('#reactivate').toggle(op.length > 0);
 					}
 					
-				})(window, jQuery);
+				})(jQuery);
 			/* ]]> */
 			</script>
 <?php			
