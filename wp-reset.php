@@ -211,7 +211,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			/* <![CDATA[ */				
 				(function(window, $) {
 					
-					var W = $(window);
+					var W = window;
 					
 					$('#wp-tables').bsmSelect({
 						animate: true,
