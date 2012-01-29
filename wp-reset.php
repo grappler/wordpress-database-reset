@@ -113,7 +113,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 				}
 					
 				// Delete and replace tables with the backed up table data
-				if ( count($this->_tables) > 0 )
+				if ( $backup_tables )
 				{
 					foreach ($this->_tables as $table)
 					{
