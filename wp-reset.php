@@ -149,7 +149,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			$admin_user = get_user_by('login', 'admin');
 			
 			// Generate a random value for the input box
-			$random_string = $this->_rand_string();
+			$random_string = wp_generate_password(5, false);
 ?>
 			<?php if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] != $_POST['wp-reset-input'] ) : ?>
 				<div class="error"><p><strong><?php _e('You entered the wrong value - please try again', 'wp-reset') ?>.</strong></p></div>
@@ -462,28 +462,7 @@ if ( ! class_exists('cb_wp_reset') && is_admin() ) :
 			
 			return FALSE;
 		}
-		
-		/**
-		 * Generates a random value for our input box
-		 *
-		 * @access private
-		 * @param $length Length of the random string value
-		 * @return $random_string
-		 */
-		function _rand_string($length = 5)
-		{
-			$random_string = '';
-			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-			$size = strlen($chars);
-			
-			for ($i = 0; $i < $length; $i++)
-			{
-				$random_string .= $chars[rand(0, $size-1)];
-			}
-			
-			return $random_string;
-		}
-		
+				
 	}
 
 	$cb_wp_reset = new cb_wp_reset();
