@@ -29,11 +29,6 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 		private $_wp_tables;
 		
 		/**
-		 * WordPress screen object
-		 */
-		private $_admin_screen;
-		
-		/**
 		 * Loads default options
 		 *
 		 * @return void
