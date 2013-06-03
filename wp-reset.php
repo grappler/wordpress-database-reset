@@ -37,8 +37,6 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 			add_action('init', array($this, 'init_language'));
 			add_action('admin_init', array($this, 'wp_reset_init'));
 			add_action('admin_init', array($this, '_redirect_user'));
-			add_action('admin_init', array($this, 'add_plugin_styles_and_scripts'));
-			add_action('admin_footer', array($this, 'add_admin_javascript'));
 			add_action('admin_menu', array($this, 'add_admin_menu'));
 			add_filter('wp_mail', array($this, '_fix_mail'));
 		}
@@ -229,8 +227,19 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 		function add_admin_menu() {			
 			if ( current_user_can('update_core') ) {
 				$this->_hook = add_submenu_page('tools.php', 'Database Reset', 'Database Reset', 'update_core', 'wp-reset', array($this, 'show_admin_page'));
-				add_action('load-' . $this->_hook, array($this, '_add_help_screen'));
+				add_action('load-' . $this->_hook, array($this, 'option_page_actions'));
 			}
+		}
+
+		/**
+		 * Fires actions on option page load
+		 * 
+		 * @return void
+		 */
+		function option_page_actions() {
+			add_action('admin_enqueue_scripts', array($this, 'add_plugin_styles_and_scripts'));
+			add_action('admin_footer', array($this, 'add_admin_javascript'));
+			$this->_add_help_screen();
 		}
 		
 		/**
