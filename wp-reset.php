@@ -367,7 +367,7 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 								$columns = $values = array();
 								foreach ( $row as $column => $value ) {
 									$columns[] = $column;
-									$values[] = $wpdb->esc_sql($value);
+									$values[] = esc_sql($value);
 								}
 								$wpdb->query("INSERT INTO $table_name (" . implode(', ', $columns) . ") VALUES ('" . implode("', '", $values) . "')");
 							}
