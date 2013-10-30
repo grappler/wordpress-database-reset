@@ -54,15 +54,15 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 			$this->_wp_tables = $wpdb->tables();
 			
 			// Check for valid input - goes ahead and drops / resets tables
-			if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) &&
-				$_POST['wp-random-value'] == $_POST['wp-reset-input'] &&
-				check_admin_referer('wp-nonce-submit', $this->_nonce) ) {
+			if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] == $_POST['wp-reset-input']
+				&& check_admin_referer('wp-nonce-submit', $this->_nonce) ) {
 				
 				require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 				
 				// No tables were selected
-				if ( ! isset($_POST['tables']) && empty($_POST['tables']) )
+				if ( ! isset($_POST['tables']) && empty($_POST['tables']) ) {
 					wp_redirect( admin_url( $pagenow ) . '?page=wp-reset&reset=no-select' ); exit();
+				}
 				
 				// Get current options
 				$blog_title = get_option('blogname');
