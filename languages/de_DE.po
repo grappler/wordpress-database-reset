@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Database Reset\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-11 23:05-0500\n"
+"PO-Revision-Date: 2013-10-30 22:41+0100\n"
+"Last-Translator: Ulrich Pogson <grapplerulrich@gmail.com>\n"
+"Language-Team: Chris Berthe <chrisberthe@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: ../\n"
+"Language: en\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wp-reset.php:110
+msgid "You entered the wrong value - please try again"
+msgstr "Du hast den falschen Wert eingegeben - bitte versuchst du es nochmals"
+
+#: wp-reset.php:112
+msgid "The WordPress database has been reset successfully"
+msgstr "Die WordPress-Datenbank wurde erfolgreich zurückgesetzt"
+
+#: wp-reset.php:117
+msgid "Database Reset"
+msgstr "Database zurücksetzen"
+
+#: wp-reset.php:118
+msgid "Please type in (or copy/paste) the generated value into the text box"
+msgstr ""
+"Bitte gibst du (oder kopieren / einfügen) den generierten Wert in das "
+"Textfeld ein"
+
+#: wp-reset.php:123
+msgid "Reset Database"
+msgstr "Datenbank zurücksetzen"
+
+#: wp-reset.php:127
+msgid "Reactivate current plugins after reset?"
+msgstr "Aktuelle Plugins nach dem Zurücksetzen reaktivieren?"
+
+#: wp-reset.php:133
+#, php-format
+msgid ""
+"The default user <strong><u>admin</u></strong> was never created for this "
+"WordPress install. So <strong><u>%s</u></strong> will be recreated with its "
+"current password instead"
+msgstr ""
+"Der Standard-Benutzername <strong><u>admin</ u></ strong> wurde nie für "
+"diese WordPress Installation erstellt. So wird <strong><u>% s </ u></ "
+"strong> dafür mit seinem aktuellen Kennwort erstellt"
+
+#: wp-reset.php:135
+msgid ""
+"The default user <strong><u>admin</u></strong> will be recreated with its "
+"current password upon resetting"
+msgstr ""
+"Der Standardbenutzer <strong><u>admin</ u></ strong> wird mit seinem "
+"aktuellen Kennwort nach die Rücksetzung erstellt"
+
+#: wp-reset.php:138
+msgid ""
+"Note that once you reset the database, all users will be deleted except the "
+"initial admin user."
+msgstr ""
+"Bitte beachten, dass wenn du die Datenbank zurückzusetzt, werden alle "
+"Benutzer mit Ausnahme der ersten Admin Benutzer gelöscht."
+
+#: wp-reset.php:154
+msgid ""
+"Clicking OK will result in your database being reset to its initial "
+"settings. Continue?"
+msgstr ""
+"Beim auf OK klicken wird die Datenbank zurückgesetzt zu seine ursprünglichen "
+"Einstellungen. Weiterfahren?"
+
+#: wp-reset.php:194
+msgid ""
+"Have any cool ideas for this plugin? Contact me either by <a href=\"http://"
+"twitter.com/#!/chrisberthe\">Twitter</a> or by <a href=\"https://github.com/"
+"chrisberthe\">GitHub</a>."
+msgstr ""
+"Haben Sie coole Ideen für dieses Plugin? Kontaktieren Sie mich entweder auf "
+"<a href=\"http://twitter.com/#!/chrisberthe\">Twitter</ a> oder <a href="
+"\"https://github.com/chrisberthe\">GitHub</ a>."
+
+#: wp-reset.php:195
+msgid ""
+"If this plugin becomes non-functional in any way due to WordPress upgrades, "
+"rest assured I will update it."
+msgstr ""
+"Wenn dieses Plugin wird nicht-funktionieren in irgendeiner Weise durch die "
+"WordPress Upgrades, sei dir versichert, dass ich es aktualisieren werde ."
+
+#: wp-reset.php:196
+msgid "Goodbye for now."
+msgstr "Auf Wiedersehen!"
+
+#: wp-reset.php:250
+msgid "WordPress Database Reset"
+msgstr "WordPress Database Reset"
+
+#: wp-reset.php:251
+msgid ""
+"The WordPress database has been successfully reset to its default settings:"
+msgstr ""
+"Die WordPress-Datenbank wurde erfolgreich zu die Standardeinstellungen "
+"zurückzusetzt"
+
+#: wp-reset.php:252
+msgid "Password: The password you chose during the install."
+msgstr "Passwort: Das Passwort, das du während der Installation gewählt hast."
