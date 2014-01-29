@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPress Database Reset\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-reset\n"
 "POT-Creation-Date: 2014-01-29 14:58:47+00:00\n"
-"PO-Revision-Date: 2014-01-29 16:25+0100\n"
+"PO-Revision-Date: 2014-01-29 18:47+0100\n"
 "Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
 "Language-Team: Chris Berthe <chrisberthe@gmail.com>\n"
 "Language: fr_FR\n"
@@ -47,7 +47,8 @@ msgstr "Tout sélectionner"
 #: wp-reset.php:152
 msgid "Type in (or copy/paste) the generated value into the text box"
 msgstr ""
-"Veuillez entrer (ou copier / coller) la valeur générée dans la zone de texte"
+"Veuillez entrer (ou copier / coller) la valeur générée dans la zone de "
+"texte&nbsp;"
 
 #: wp-reset.php:156
 msgid "Reset Database"
@@ -63,9 +64,9 @@ msgid ""
 "WordPress install. So <strong><u>%s</u></strong> will be recreated with its "
 "current password instead"
 msgstr ""
-"L'utilisateur <strong><u>admin</u></strong> par défaut n'a jamais été créé "
+"L'utilisateur par défaut<strong><u>admin</u></strong>  n'a jamais été créé "
 "dans cette installation de WordPress. Donc <strong><u>%s</u></strong> sera "
-"recréé avec son mot de passe actuel."
+"recréé avec son mot de passe actuel"
 
 #: wp-reset.php:171
 msgid ""
@@ -80,13 +81,12 @@ msgid ""
 "Note that once you reset the database, all users will be deleted except the "
 "initial admin user."
 msgstr ""
-"Notez qu'une fois la base de données soit réinitialisée, tous les "
-"utilisateurs seront supprimées à l'exception de l'utilisateur admin par "
-"défaut."
+"Notez qu'une fois la base de données réinitialisée, tous les utilisateurs "
+"seront supprimées à l'exception de l'utilisateur par défaut admin."
 
 #: wp-reset.php:192
 msgid "Select Table"
-msgstr "Sélectionner"
+msgstr "Sélectionner Tables"
 
 #: wp-reset.php:202
 msgid ""
