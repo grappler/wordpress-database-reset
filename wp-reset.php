@@ -7,9 +7,6 @@ Version: 2.3.1
 Author: Chris Berthe ☻
 Author URI: https://github.com/chrisberthe
 License: GNU General Public License
-Text Domain: wp-reset
-Domain Path: languages
-
 */
 
 if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
@@ -84,9 +81,13 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 				if ( 0 < count($this->_tables) )
 					$backup_tables = $this->_backup_tables($this->_tables);
 
-				// Grab the currently active plugins
-				if ( isset($_POST['wp-reset-check']) && 'true' == $_POST['wp-reset-check'] )
-					$active_plugins = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins') );
+				// Grab the currently active plugins and theme
+				if ( isset($_POST['wp-reset-check']) && 'true' == $_POST['wp-reset-check'] ) {
+					$current_data['active-plugins'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins') );
+					$current_data['current-theme'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'current_theme') );
+					$current_data['template'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'template') );
+					$current_data['stylesheet'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'stylesheet') );
+				}
 
 				// Run through the database columns, drop all the tables and
 				// install wp with previous settings
@@ -106,8 +107,43 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 					$this->_backup_tables($backup_tables, 'reset');
 				}
 
-				if ( ! empty($active_plugins) ) {
-					$wpdb->update($wpdb->options, array('option_value' => $active_plugins), array('option_name' => 'active_plugins'));
+				if ( ! empty($current_data) ) {
+					$wpdb->update(
+						$wpdb->options,
+						array(
+							'option_value' => $current_data['active-plugins']
+						),
+						array(
+							'option_name' => 'active_plugins'
+						)
+					);
+					$wpdb->update(
+						$wpdb->options,
+						array(
+							'option_value' => $current_data['current-theme']
+						),
+						array(
+							'option_name' => 'current_theme'
+						)
+					);
+					$wpdb->update(
+						$wpdb->options,
+						array(
+							'option_value' => $current_data['template']
+						),
+						array(
+							'option_name' => 'template'
+						)
+					);
+					$wpdb->update(
+						$wpdb->options,
+						array(
+							'option_value' => $current_data['stylesheet']
+						),
+						array(
+							'option_name' => 'stylesheet'
+						)
+					);
 					wp_redirect( admin_url($pagenow) . '?page=wp-reset&reset=success' ); exit();
 				}
 
@@ -126,8 +162,8 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 
 			// Return to see if admin object exists
 			$admin_user = get_user_by('login', 'admin');
-			$random_string = wp_generate_password(5, false);
-?>
+			$random_string = wp_generate_password(5, false); ?>
+
 			<?php if ( isset($_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] != $_POST['wp-reset-input'] ) : ?>
 				<div class="error"><p><strong><?php _e('You entered the wrong value - please try again', 'wp-reset') ?>.</strong></p></div>
 			<?php elseif ( isset($_GET['reset']) && 'no-select' == $_GET['reset'] ) : ?>
@@ -159,7 +195,7 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 						<p>
 							<label for="wp-reset-check">
 								<input type="checkbox" name="wp-reset-check" id="wp-reset-check" checked="checked" value="true" />
-							<?php _e('Reactivate current plugins after reset?', 'wp-reset') ?>
+							<?php _e('Reactivate current plugins and theme after reset?', 'wp-reset') ?>
 							</label>
 						</p>
 					</div>
