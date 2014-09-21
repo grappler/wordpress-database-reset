@@ -7,6 +7,7 @@ Version: 2.3.1
 Author: Chris Berthe ☻
 Author URI: https://github.com/chrisberthe
 License: GNU General Public License
+Text Domain: wp-reset
 */
 
 if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
@@ -83,10 +84,10 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 
 				// Grab the currently active plugins and theme
 				if ( isset($_POST['wp-reset-check']) && 'true' == $_POST['wp-reset-check'] ) {
-					$current_data['active-plugins'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'active_plugins') );
-					$current_data['current-theme'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'current_theme') );
-					$current_data['template'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'template') );
-					$current_data['stylesheet'] = $wpdb->get_var( $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s", 'stylesheet') );
+					$current_data['active-plugins'] = get_option( 'active_plugins' );
+					$current_data['current-theme'] = get_option( 'current_theme' );
+					$current_data['template'] = get_option( 'template' );
+					$current_data['stylesheet'] = get_option( 'stylesheet' );
 				}
 
 				// Run through the database columns, drop all the tables and
@@ -107,43 +108,13 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 					$this->_backup_tables($backup_tables, 'reset');
 				}
 
-				if ( ! empty($current_data) ) {
-					$wpdb->update(
-						$wpdb->options,
-						array(
-							'option_value' => $current_data['active-plugins']
-						),
-						array(
-							'option_name' => 'active_plugins'
-						)
-					);
-					$wpdb->update(
-						$wpdb->options,
-						array(
-							'option_value' => $current_data['current-theme']
-						),
-						array(
-							'option_name' => 'current_theme'
-						)
-					);
-					$wpdb->update(
-						$wpdb->options,
-						array(
-							'option_value' => $current_data['template']
-						),
-						array(
-							'option_name' => 'template'
-						)
-					);
-					$wpdb->update(
-						$wpdb->options,
-						array(
-							'option_value' => $current_data['stylesheet']
-						),
-						array(
-							'option_name' => 'stylesheet'
-						)
-					);
+				if ( ! empty( $current_data ) ) {
+					update_option( 'active_plugins', $current_data['active-plugins'] );
+					if ( ! empty( $current_data['current-theme']) ) {
+						update_option( 'current_theme', $current_data['current-theme'] );
+					}
+					update_option( 'template', $current_data['template'] );
+					update_option( 'stylesheet', $current_data['stylesheet'] );
 					wp_redirect( admin_url($pagenow) . '?page=wp-reset&reset=success' ); exit();
 				}
 
