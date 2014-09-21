@@ -100,7 +100,7 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 				}
 
 				// Delete and replace tables with the backed up table data
-				if ( $backup_tables ) {
+				if ( ! empty( $backup_tables ) ) {
 					foreach ($this->_tables as $table) {
 						$wpdb->query("DELETE FROM " . $table);
 					}
