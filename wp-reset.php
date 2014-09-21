@@ -448,3 +448,7 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 	register_activation_hook( __FILE__, array('cb_wp_reset', 'plugin_activate') );
 
 endif;
+
+if ( defined('WP_CLI') && WP_CLI ) {
+    include __DIR__ . '/cli-command.php';
+}
