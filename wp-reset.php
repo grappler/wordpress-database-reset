@@ -79,8 +79,9 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 				$this->_tables = array_diff_key($this->_wp_tables, $tables);
 
 				// Preserve the data from the tables that are unique
-				if ( 0 < count($this->_tables) )
+				if ( 0 < count($this->_tables) ) {
 					$backup_tables = $this->_backup_tables($this->_tables);
+				}
 
 				// Grab the currently active plugins and theme
 				if ( isset($_POST['wp-reset-check']) && 'true' == $_POST['wp-reset-check'] ) {
@@ -92,9 +93,9 @@ if ( ! class_exists('CB_WP_Reset') && is_admin() ) :
 
 				// Run through the database columns, drop all the tables and
 				// install wp with previous settings
-				if ( $db_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}%'") ) {
-					foreach ($db_tables as $db_table) {
-						$wpdb->query("DROP TABLE {$db_table}");
+				if ( ! empty( $this->_wp_tables ) ) {
+					foreach ($this->_wp_tables as $wp_table) {
+						$wpdb->query("DROP TABLE {$wp_table}");
 					}
 					$keys = wp_install($blog_title, $user->user_login, $user->user_email, $public);
 					$this->_wp_update_user($user, $keys);
