@@ -109,6 +109,13 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 					$this->_backup_tables( $backup_tables, 'reset' );
 				}
 
+				if ( get_user_meta( $current_user->ID, 'session_tokens' ) ) {
+					delete_user_meta( $current_user->ID, 'session_tokens' );
+				}
+
+				wp_clear_auth_cookie();
+				wp_set_auth_cookie( $current_user->ID );
+
 				if ( ! empty( $current_data ) ) {
 					update_option( 'active_plugins', $current_data['active-plugins'] );
 
@@ -417,9 +424,6 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 				if ( get_user_meta( $user_id, 'default_password_nag' ) ) {
 					delete_user_meta( $user_id, 'default_password_nag' );
 				}
-
-				wp_clear_auth_cookie();
-				wp_set_auth_cookie( $user_id );
 
 				return true;
 			}
