@@ -198,36 +198,40 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 ?>
 			<script type="text/javascript">
 			/* <![CDATA[ */
-				(function($) {
+				(function( $ ) {
 
-					$('#wp-tables').bsmSelect({
+					$( '#wp-tables' ).bsmSelect({
 						animate: true,
-						title: "<?php _e('Select Table', 'wp-reset') ?>",
+						title: "<?php _e( 'Select Table', 'wp-reset' ) ?>",
 						plugins: [$.bsmSelect.plugins.compatibility()]
 					});
 
-					$("#select-all").click(function() {
-						$("#wp-tables").children().attr("selected", "selected").end().change();
+					$( '#select-all' ).click(function() {
+						$( '#wp-tables' ).children()
+														  	.attr( 'selected', 'selected' )
+														 .end()
+														 .change();
+
 						return false;
 					});
 
-					$('#wp-reset-submit').click(function() {
-						var message = "<?php _e( 'Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset' ) ?>";
-						var reset = confirm(message);
+					$( '#wp-reset-submit' ).click(function() {
+						var message = "<?php _e( 'Clicking OK will result in your database being reset to its initial settings. Continue?', 'wp-reset' ) ?>",
+								reset = confirm( message );
 
 						if (reset) {
-							$('#wp-reset-form').submit();
-							$('#loader').show();
+							$( '#wp-reset-form' ).submit();
+							$( '#loader' ).show();
 						} else {
 							return false;
 						}
 					});
 
-					$('#wp-tables').change(function() {
-						$('#reactivate').toggle($("option[value='options']:selected", this).length > 0);
+					$( '#wp-tables' ).change(function() {
+						$( '#reactivate' ).toggle( $( "option[value='options']:selected", this ).length > 0 );
 					});
 
-				})(jQuery);
+				})( jQuery );
 			/* ]]> */
 			</script>
 <?php
