@@ -55,7 +55,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 			$this->_wp_tables = $wpdb->tables();
 
 			// Check for valid input - goes ahead and drops / resets tables
-			if ( isset( $_POST['wp-random-value'], $_POST['wp-reset-input']) && $_POST['wp-random-value'] == $_POST['wp-reset-input']
+			if ( isset( $_POST['wp-random-value'], $_POST['wp-reset-input'] ) && $_POST['wp-random-value'] == $_POST['wp-reset-input']
 				&& check_admin_referer( 'wp-nonce-submit', $this->_nonce ) ) {
 
 				require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -119,7 +119,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 					update_option( 'template', $current_data['template'] );
 					update_option( 'stylesheet', $current_data['stylesheet'] );
 
-					wp_redirect( admin_url($pagenow) . '?page=wp-reset&reset=success' );
+					wp_redirect( admin_url( $pagenow ) . '?page=wp-reset&reset=success' );
 					exit();
 				}
 
