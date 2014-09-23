@@ -253,6 +253,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 		/**
 		 * Fires actions on option page load
 		 *
+		 * @access public
 		 * @return void
 		 */
 		function option_page_actions() {
