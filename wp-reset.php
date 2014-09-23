@@ -84,11 +84,13 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 				}
 
 				// Grab the currently active plugins and theme
-				if ( isset( $_POST['wp-reset-check']) && 'true' == $_POST['wp-reset-check'] ) {
-					$current_data['active-plugins'] = get_option( 'active_plugins' );
-					$current_data['current-theme'] = get_option( 'current_theme' );
-					$current_data['template'] = get_option( 'template' );
-					$current_data['stylesheet'] = get_option( 'stylesheet' );
+				if ( ! empty($_POST['wp-reset-check']) ) {
+					$current_data = array(
+						'active-plugins' => get_option( 'active_plugins' ),
+						'current-theme' => get_option( 'current_theme' ),
+						'template' => get_option( 'template' ),
+						'stylesheet' => get_option( 'stylesheet' )
+					);
 				}
 
 				// Run through the database columns, drop all the tables and
