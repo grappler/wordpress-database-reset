@@ -81,7 +81,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 
 				// Preserve the data from the tables that are unique
 				if ( 0 < count( $this->_tables ) ) {
-					$backup_tables = $this->_backup_tables( $this->_tables );
+					$backup_tables = $this->_back_up_tables( $this->_tables );
 				}
 
 				// Grab the currently active plugins and theme
@@ -109,7 +109,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 					foreach ( $this->_tables as $table ) {
 						$wpdb->query( "DELETE FROM " . $table );
 					}
-					$this->_backup_tables( $backup_tables, 'reset' );
+					$this->_restore_tables( $backup_tables );
 				}
 
 				if ( get_user_meta( $current_user->ID, 'session_tokens' ) ) {
@@ -373,36 +373,47 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 
 		/**
 		 * Preserves all the results from the tables the user
-		 * did not select from the drop-down. Also resets these
-		 * results back after reinstalling WordPress.
+		 * did not select from the drop-down.
 		 *
 		 * @access private
-		 * @return array Backed up data if type backup, void if reset
+		 * @return array Backed up data if type backup
 		 */
-		function _backup_tables( $tables, $type = 'backup' ) {
+		function _back_up_tables( $tables ) {
 			global $wpdb;
 
 			if ( is_array( $tables ) ) {
-				switch ( $type ) {
-					case 'backup':
-						$backup_tables = array();
-						foreach ( $tables as $table ) {
-							$backup_tables[$table] = $wpdb->get_results( "SELECT * FROM " . $table );
+				$backup_tables = array();
+
+				foreach ( $tables as $table ) {
+					$backup_tables[$table] = $wpdb->get_results( "SELECT * FROM " . $table );
+				}
+
+				return $backup_tables;
+			}
+		}
+
+		/**
+		 * Restores the data from the tables the user did not
+		 * select during the backing up phase.
+		 *
+		 * @access private
+		 * @return void
+		 */
+		function _restore_tables( $tables ) {
+			global $wpdb;
+
+			if ( is_array( $tables ) ) {
+				foreach ( $tables as $table_name => $table_data ) {
+					foreach ( $table_data as $row ) {
+						$columns = $values = array();
+
+						foreach ( $row as $column => $value ) {
+							$columns[] = $column;
+							$values[] = esc_sql( $value );
 						}
-						return $backup_tables;
-						break;
-					case 'reset':
-						foreach ( $tables as $table_name => $table_data ) {
-							foreach ( $table_data as $row ) {
-								$columns = $values = array();
-								foreach ( $row as $column => $value ) {
-									$columns[] = $column;
-									$values[] = esc_sql( $value );
-								}
-								$wpdb->query( "INSERT INTO $table_name (" . implode( ', ', $columns ) . ") VALUES ('" . implode( "', '", $values ) . "')" );
-							}
-						}
-						break;
+
+						$wpdb->query( "INSERT INTO $table_name (" . implode( ', ', $columns ) . ") VALUES ('" . implode( "', '", $values ) . "')" );
+					}
 				}
 			}
 			return;
