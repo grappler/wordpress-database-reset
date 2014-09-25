@@ -390,6 +390,7 @@ if ( ! class_exists( 'CB_WP_Reset' ) && is_admin() ) :
 
 				return $backup_tables;
 			}
+			return;
 		}
 
 		/**
