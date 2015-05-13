@@ -1,0 +1,16 @@
+#select-buttons {
+	width: 208px;
+}
+
+#select-all {
+	float: right;
+	margin-top: 4px;
+}
+
+#loader {
+	position: absolute;
+	margin-left: 10px;
+	margin-top: 1px;
+}
+
+#reactivate {color: #21759B}
