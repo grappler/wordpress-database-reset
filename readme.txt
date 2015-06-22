@@ -1,29 +1,40 @@
 === WordPress Database Reset ===
 
 Contributors: mousesports
-Tags: wordpress, database, database-reset, restore, setup, development, default-settings, default, wp-reset, security, secure
+Tags: wordpress, database, reset, restore, setup, developer, theme, default, secure
 License: GPL2
 Requires at least: 3.0
 Tested up to: 4.2.2
-Stable tag: 2.3.2
+Stable tag: 3.0
 
-A simple way to reset the database to the state of WordPress right after you install it for the first time.
+A plugin that allows you to skip the 5 minute installation and reset WordPress's database back to its original state.
 
 == Description ==
 
-WordPress Database Reset allows for a secure and easy way to reinitialize the database back to its default settings without having to reinstall WordPress yourself.
+**Overview**
 
-This plugin will come in handy for both theme and plugin developers. There are different use case scenarios - one of which is being able to easily erase excess junk in the wp_options table that accumulates over time. Another would be to simply obtain a fresh install of the WordPress database after experimenting with various back-end options.
+The WordPress Database Reset plugin allows you to reset the database back to its default settings without having to go through the WordPress 5 minute installation.
 
-== Installation ==
+**Features**
 
-Copy the wp-reset folder and its contents to your wp-content/plugins directory,
-then activate the plugin. You could also use the built-in Add New Plugin
-feature within WordPress. After activating, you will automatically be redirected
-to the plugin page.
+* Extremely fast one click process to reset the WordPress database
+* Choose to reset the entire database or specific database tables
+* Highly secure and super simple to use
+* Excellent for theme and plugin developers who need to clean the database of any unnecessary content
+
+**Support Forum**
+
+Create a new post in the [WordPress Database Reset support forum](https://wordpress.org/support/plugin/wordpress-database-reset).
+
+**Want to help out?**
+
+* Provide new language translations - [read this tutorial](http://weblogtoolscollection.com/archives/2007/08/27/localizing-a-wordpress-plugin-using-poedit/) or use the [online PO Editor](https://poeditor.com/).
+* Help develop the plugin by forking [the code repository](https://github.com/chrisberthe/wordpress-database-reset) on GitHub.
+* Want to help others that might be having issues? [Answer questions on the support forum](https://wordpress.org/support/plugin/wordpress-database-reset).
+* If you love this plugin and would like to make a donation: 1. You're awesome and 2. You can find the donate button on the plugin page.
 
 == Screenshots ==
-1. The plugin page - a more secure way of resetting your database.
+1. The WordPress Database Reset plugin page.
 
 == Changelog ==
 = 2.3.2 =
@@ -31,7 +42,7 @@ to the plugin page.
 * Adhere to WordPress PHP coding syntax standards
 * Delete the user session and recreate it
 * Separate the backup_tables method into two new methods
-* Reset only WP tales and not custom tables
+* Reset only WP tables and not custom tables
 * French language updates, thanks to Fx Benard
 * Fix for undefined variable: backup_tables
 
