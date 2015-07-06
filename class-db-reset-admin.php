@@ -91,7 +91,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
       $plugin_page = add_management_page(
         __( 'Database Reset', 'wp-reset' ),
         __( 'Database Reset', 'wp-reset' ),
-        'manage_options',
+        'update_core',
         'database-reset',
         array( $this, 'render' )
       );
