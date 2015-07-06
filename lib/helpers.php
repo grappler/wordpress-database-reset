@@ -114,8 +114,6 @@ function db_reset_install( $blog_title, $user_name, $user_email, $public, $depre
 
   flush_rewrite_rules();
 
-  wp_new_blog_notification( $blog_title, $guessurl, $user_id, ( $email_password ? $user_password : __( 'The password you chose during the install.' ) ) );
-
   wp_cache_flush();
 
   /**
