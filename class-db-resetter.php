@@ -13,6 +13,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private $wp_tables;
 
     public function __construct() {
+      $this->backup = array();
+
       $this->set_wp_tables();
       // @TODO current user ain't working yet
       // $this->get_user();
@@ -51,7 +53,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private function back_up_tables( $tables = array() ) {
       global $wpdb;
-      $this->backup = array();
 
       foreach ( $tables as $table ) {
         $this->backup[ $table ] = $wpdb->get_results( "SELECT * FROM {$table}" );
