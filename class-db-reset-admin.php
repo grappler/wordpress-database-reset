@@ -72,7 +72,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     }
 
     private function form_is_safe_to_submit() {
-      return $this->request['db-reset-code-confirm'] &&
+      return isset( $this->request['db-reset-code-confirm'] ) &&
              $this->assert_correct_code() &&
              check_admin_referer( $this->nonce );
     }
