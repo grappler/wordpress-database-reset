@@ -16,9 +16,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->backup = array();
 
       $this->set_wp_tables();
-      // @TODO current user ain't working yet
-      // $this->get_user();
-      var_dump( $this->user );
+      $this->set_user();
     }
 
     public function reset( $tables = array(), $with_theme_data = true ) {
@@ -68,10 +66,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       );
     }
 
-    private function get_user() {
-      $this->user = wp_get_current_user();
-    }
-
     private function validate_default_admin( $admin ) {
       return ( $admin || user_can( $admin->ID, 'update_core' ) );
     }
@@ -88,7 +82,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function reinstall() {
       $this->drop_wp_tables();
       $keys = $this->install_wp();
-      // @TODO Do something about $this->user so it can be passed
       $this->update_user_settings( $this->user, $keys );
     }
 
@@ -103,7 +96,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function install_wp() {
       return db_reset_install(
         $this->blog_data[ 'title' ],
-        $this->user->login,
+        $this->user->user_login,
         $this->user->user_email,
         $this->blog_data[ 'public' ]
       );
@@ -135,6 +128,14 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     public function get_wp_tables() {
       return $this->wp_tables;
+    }
+
+    private function set_user() {
+      $this->user = wp_get_current_user();
+    }
+
+    public function get_user() {
+      return $this->user;
     }
 
   }
