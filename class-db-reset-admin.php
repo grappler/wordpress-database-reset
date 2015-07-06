@@ -27,9 +27,25 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     }
 
     private function set_view_variables() {
+      $this->set_code();
+      $this->set_nonce();
+      $this->set_user();
+      $this->set_wp_tables();
+    }
+
+    private function set_code() {
       $this->code = $this->generate_code();
+    }
+
+    private function set_nonce() {
       $this->nonce = strtolower( str_replace( '_', '-', __CLASS__ ) );
-      // $this->user = $this->resetter->get_user();
+    }
+
+    private function set_user() {
+      $this->user = $this->resetter->get_user();
+    }
+
+    private function set_wp_tables() {
       $this->wp_tables = $this->resetter->get_wp_tables();
     }
 
