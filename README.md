@@ -7,7 +7,7 @@ A plugin that allows you to skip the 5 minute installation and reset WordPress's
 
 * Extremely fast one click process to reset the WordPress database
 * Choose to reset the entire database or specific database tables
-* Highly secure and super simple to use
+* Secure and super simple to use
 * Excellent for theme and plugin developers who need to clean the database of any unnecessary content quickly
 
 ###Contributing
@@ -19,5 +19,5 @@ Contribute by sending in a plugin suggestion, an improvement or a pull request. 
 [bsmSelect][3] - Better Select Multiple (vicb | Ryan Cramer)
 
 [1]: https://github.com/chrisberthe/wordpress-database-reset/issues
-[2]: https://github.com/vicb/bsmSelect
+[2]: https://wordpress.org/support/plugin/wordpress-database-reset
 [3]: https://github.com/vicb/bsmSelect
