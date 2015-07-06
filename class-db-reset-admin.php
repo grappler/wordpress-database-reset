@@ -65,6 +65,8 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
             $this->request['db-reset-tables'],
             $this->request['db-reset-reactivate-theme-data']
           );
+
+          $this->notice_success = __( 'The selected tables were reset', 'wp-reset' );
         } catch ( Exception $e ) {
           $this->notice_error = $e->getMessage();
         }
