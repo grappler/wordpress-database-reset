@@ -39,6 +39,9 @@ function db_reset_cancel_activation( $message ) {
   wp_die( $message );
 }
 
+// Ewww. Still need it though.
+require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+
 /**
  * Installs the site.
  *
