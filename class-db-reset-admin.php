@@ -24,6 +24,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     private function set_request( array $request ) {
       $this->request = $request;
+      $this->request['db-reset-tables'] = array();
     }
 
     private function set_view_variables() {
