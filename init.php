@@ -24,6 +24,9 @@ load_plugin_textdomain( 'wp-reset', false, DB_RESET_NAME . '/languages/' );
 if ( file_exists( AUTOLOADER ) ) {
   require_once( AUTOLOADER );
   new Plugin_Autoloader( DB_RESET_PATH );
-  $manager = new DB_Reset_Manager( DB_RESET_VERSION );
-  $manager->run();
+
+  add_action(
+    'wp_loaded',
+    array ( new DB_Reset_Manager( DB_RESET_VERSION ), 'run' )
+  );
 }
