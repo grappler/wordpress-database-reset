@@ -66,10 +66,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       );
     }
 
-    private function validate_default_admin( $admin ) {
-      return ( $admin || user_can( $admin->ID, 'update_core' ) );
-    }
-
     private function set_theme_data() {
       $this->theme_data = array(
         'active-plugins' => get_option( 'active_plugins' ),
