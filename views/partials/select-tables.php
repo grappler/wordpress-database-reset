@@ -11,7 +11,7 @@
 
 <p id="reactivate" style="display: none">
   <label for="db-reset-reactivate-theme-data">
-    <input type="checkbox" name="db-reset-reactivate-theme-data" id="db-reset-reactivate" checked="checked" value="true" />
+    <input type="checkbox" name="db-reset-reactivate-theme-data" id="db-reset-reactivate-theme-data" checked="checked" value="true" />
     <?php _e( 'Reactivate current theme and plugins after reset?', 'wp-reset' ) ?>
   </label>
 </p>
