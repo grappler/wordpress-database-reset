@@ -55,8 +55,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       foreach ( $tables as $table ) {
         $this->backup[ $table ] = $wpdb->get_results( "SELECT * FROM {$table}" );
       }
-
-      return $this->backup;
     }
 
     private function set_blog_data() {
