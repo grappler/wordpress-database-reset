@@ -77,8 +77,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private function reinstall() {
       $this->drop_wp_tables();
-      $keys = $this->install_wp();
-      $this->update_user_settings( $this->user, $keys );
+      $this->install_wp();
+      $this->update_user_settings();
     }
 
     private function drop_wp_tables() {
@@ -98,17 +98,16 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       );
     }
 
-    private function update_user_settings( $user, $keys ) {
+    private function update_user_settings() {
       global $wpdb;
-      extract( $keys, EXTR_SKIP );
 
       $query = $wpdb->prepare( "UPDATE $wpdb->users
                                 SET user_pass = '%s', user_activation_key = ''
                                 WHERE ID = '%d'",
-                                $user->user_pass, $user_id );
+                                $this->user->user_pass, $this->user->ID );
 
       $wpdb->query( $query );
-      $this->remove_password_nag( $user_id );
+      $this->remove_password_nag( $this->user->ID );
     }
 
     private function remove_password_nag( $user_id ) {
