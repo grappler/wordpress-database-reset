@@ -65,8 +65,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
             $this->request[ 'db-reset-tables' ],
             $this->request[ 'db-reset-reactivate-theme-data' ]
           );
-
-          $this->notice_success = __( 'The selected tables were reset', 'wp-reset' );
+          $this->handle_after_reset();
         } catch ( Exception $e ) {
           $this->notice_error = $e->getMessage();
         }
@@ -78,6 +77,15 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
              $this->assert_request_variables_not_empty() &&
              $this->assert_correct_code() &&
              check_admin_referer( $this->nonce );
+    }
+
+    private function handle_after_reset() {
+      if ( empty( $this->request[ 'db-reset-reactivate-theme-data' ] ) ) {
+        wp_redirect( admin_url() );
+        exit;
+      }
+
+      $this->notice_success = __( 'The selected tables were reset', 'wp-reset' );
     }
 
     private function assert_request_variables_not_empty() {
