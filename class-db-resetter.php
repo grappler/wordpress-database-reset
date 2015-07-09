@@ -98,14 +98,15 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function update_user_settings() {
       global $wpdb;
 
-      $query = $wpdb->prepare(
-               "UPDATE $wpdb->users
-                SET user_pass = '%s', user_activation_key = ''
-                WHERE ID = '%d'",
-                $this->user->user_pass, $this->user->ID
-              );
+      $wpdb->query(
+        $wpdb->prepare(
+         "UPDATE $wpdb->users
+          SET user_pass = '%s', user_activation_key = ''
+          WHERE ID = '%d'",
+          $this->user->user_pass, $this->user->ID
+        );
+      );
 
-      $wpdb->query( $query );
       $this->remove_password_nag( $this->user->ID );
     }
 
