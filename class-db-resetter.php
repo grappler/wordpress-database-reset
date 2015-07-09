@@ -24,7 +24,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->restore_backup();
     }
 
-    private function validate_selected( $tables = array() ) {
+    private function validate_selected( array $tables ) {
       if ( ! empty( $tables ) && is_array( $tables ) ) {
         $this->selected = array_flip( $tables );
         return;
@@ -43,11 +43,11 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       }
     }
 
-    private function set_tables_to_preserve( $tables = array() ) {
+    private function set_tables_to_preserve( array $tables ) {
       $this->preserved = array_diff_key( $this->wp_tables, $tables );
     }
 
-    private function back_up_tables( $tables = array() ) {
+    private function back_up_tables( array $tables ) {
       global $wpdb;
       $this->backup = array();
 
@@ -123,7 +123,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->assert_theme_data_needs_reset();
     }
 
-    private function delete_backup_table_rows( $tables = array() ) {
+    private function delete_backup_table_rows( array $tables ) {
       global $wpdb;
 
       foreach ( $tables as $table ) {
@@ -131,7 +131,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       }
     }
 
-    private function restore_backup_tables( $tables = array() ) {
+    private function restore_backup_tables( array $tables ) {
       global $wpdb;
 
       foreach ( $tables as $table => $data ) {
