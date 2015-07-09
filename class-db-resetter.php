@@ -22,8 +22,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     public function reset( $tables = array(), $with_theme_data = true ) {
       $this->validate_selected( $tables );
       $this->set_backup( $with_theme_data );
-      // $this->reinstall();
-      // $this->restore_backup();
+      $this->reinstall();
+      $this->restore_backup();
     }
 
     private function validate_selected( $tables = array() ) {
@@ -114,6 +114,66 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function remove_password_nag( $user_id ) {
       if ( get_user_meta( $user_id, 'default_password_nag' ) ) {
         delete_user_meta( $user_id, 'default_password_nag' );
+      }
+    }
+
+    private function restore_backup() {
+      $this->delete_backup_table_rows( $this->preserved );
+      $this->restore_backup_tables( $this->backup );
+      $this->remove_user_session_tokens();
+      $this->reset_user_auth_cookie();
+      $this->assert_theme_data_needs_reset();
+    }
+
+    private function delete_backup_table_rows( $tables = array() ) {
+      global $wpdb;
+
+      foreach ( $tables as $table ) {
+        $wpdb->query( "DELETE FROM {$table}" );
+      }
+    }
+
+    private function restore_backup_tables( $tables = array() ) {
+      global $wpdb;
+
+      foreach ( $tables as $table => $data ) {
+        foreach ( $data as $row ) {
+          $columns = $values = array();
+
+          foreach ( $row as $column => $value ) {
+            $columns[] = $column;
+            $values[] = esc_sql( $value );
+          }
+
+          $wpdb->query( "INSERT INTO $table (" . implode( ', ', $columns ) . ") VALUES ('" . implode( "', '", $values ) . "')" );
+        }
+      }
+    }
+
+    private function remove_user_session_tokens() {
+      if ( get_user_meta( $this->user->ID, 'session_tokens' ) ) {
+        delete_user_meta( $this->user->ID, 'session_tokens' );
+      }
+    }
+
+    private function reset_user_auth_cookie() {
+      wp_clear_auth_cookie();
+      wp_set_auth_cookie( $this->user->ID );
+    }
+
+    private function assert_theme_data_needs_reset() {
+      if ( ! empty( $this->theme_data ) ) {
+        $this->restore_theme_data();
+      }
+    }
+
+    private function restore_theme_data() {
+      update_option( 'active_plugins', $this->theme_data['active-plugins'] );
+      update_option( 'template', $this->theme_data['template'] );
+      update_option( 'stylesheet', $this->theme_data['stylesheet'] );
+
+      if ( ! empty( $this->theme_data['current-theme'] ) ) {
+        update_option( 'current_theme', $this->theme_data['current-theme'] );
       }
     }
 
