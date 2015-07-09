@@ -17,9 +17,9 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->set_user();
     }
 
-    public function reset( $tables = array(), $with_theme_data = true ) {
+    public function reset( array $tables ) {
       $this->validate_selected( $tables );
-      $this->set_backup( $with_theme_data );
+      $this->set_backup();
       $this->reinstall();
       $this->restore_backup();
     }
@@ -33,12 +33,12 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       throw new Exception( __( 'You did not select any database tables', 'wp-reset' ) );
     }
 
-    private function set_backup( $with_theme_data = true ) {
+    private function set_backup() {
       $this->set_tables_to_preserve( $this->selected );
       $this->back_up_tables( $this->preserved );
       $this->set_blog_data();
 
-      if ( $with_theme_data ) {
+      if ( $this->theme_data ) {
         $this->set_theme_data();
       }
     }
@@ -173,6 +173,10 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       if ( ! empty( $this->theme_data['current-theme'] ) ) {
         update_option( 'current_theme', $this->theme_data['current-theme'] );
       }
+    }
+
+    public function set_reactivate( $with_theme_data ) {
+      $this->theme_data = $with_theme_data;
     }
 
     private function set_wp_tables() {

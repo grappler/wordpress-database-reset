@@ -61,10 +61,8 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     public function reset() {
       if ( $this->form_is_safe_to_submit() ) {
         try {
-          $this->resetter->reset(
-            $this->request[ 'db-reset-tables' ],
-            $this->request[ 'db-reset-reactivate-theme-data' ]
-          );
+          $this->resetter->set_reactivate( $this->request[ 'db-reset-reactivate-theme-data' ] );
+          $this->resetter->reset( $this->request[ 'db-reset-tables' ] );
           $this->handle_after_reset();
         } catch ( Exception $e ) {
           $this->notice_error = $e->getMessage();
