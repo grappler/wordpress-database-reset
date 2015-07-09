@@ -90,7 +90,6 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     private function set_empty_request_key( $key, $default ) {
       if ( ! array_key_exists( $key, $this->request ) ) {
         $this->request[ $key ] = $default;
-        return true;
       }
     }
 
