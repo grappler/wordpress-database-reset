@@ -127,7 +127,11 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     private function set_user() {
-      $this->user = wp_get_current_user();
+      global $current_user;
+
+      $this->user = ( ! empty( $current_user ) ) ?
+                    wp_get_current_user() :
+                    get_user_data( 1 );
     }
 
     public function get_user() {
