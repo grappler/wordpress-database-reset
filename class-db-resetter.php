@@ -27,7 +27,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     private function validate_selected( $tables = array() ) {
-      if ( ! empty( $tables ) ) {
+      if ( ! empty( $tables ) && is_array( $tables ) ) {
         $this->selected = array_flip( $tables );
         return;
       }
