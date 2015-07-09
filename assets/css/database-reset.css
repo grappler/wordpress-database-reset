@@ -9,6 +9,7 @@
 
 #security-code {
   font-weight: bold;
+  display: inline-block;
   margin-left: 3px;
 }
 
