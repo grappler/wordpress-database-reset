@@ -24,7 +24,6 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     private function set_request( array $request ) {
       $this->request = $request;
-      $this->request['db-reset-tables'] = array();
     }
 
     private function set_view_variables() {
@@ -63,8 +62,6 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
       if ( $this->form_is_safe_to_submit() ) {
         try {
           $this->resetter->reset(
-            $this->request['db-reset-tables'],
-            $this->request['db-reset-reactivate-theme-data']
             $this->request[ 'db-reset-tables' ],
             $this->request[ 'db-reset-reactivate-theme-data' ]
           );
