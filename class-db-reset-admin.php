@@ -75,8 +75,23 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     private function form_is_safe_to_submit() {
       return isset( $this->request['db-reset-code-confirm'] ) &&
+             $this->assert_request_variables_not_empty() &&
              $this->assert_correct_code() &&
              check_admin_referer( $this->nonce );
+    }
+
+    private function assert_request_variables_not_empty() {
+      $this->set_empty_request_key( 'db-reset-tables', array() );
+      $this->set_empty_request_key( 'db-reset-reactivate-theme-data', false );
+
+      return true;
+    }
+
+    private function set_empty_request_key( $key, $default ) {
+      if ( ! array_key_exists( $key, $this->request ) ) {
+        $this->request[ $key ] = $default;
+        return true;
+      }
     }
 
     private function assert_correct_code() {
