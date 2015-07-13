@@ -4,7 +4,7 @@
   <?php include( 'partials/notice.php' ) ?>
 
   <form method="post" id="db-reset-form">
-    <?php wp_nonce_field( $this->nonce ) ?>
+    <?php wp_nonce_field( $this->nonce, '_db-reset-nonce' ) ?>
     <?php include( 'partials/select-tables.php' ) ?>
     <?php include( 'partials/security-code.php' ) ?>
     <?php include( 'partials/submit-button.php' ) ?>
