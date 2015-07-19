@@ -34,7 +34,7 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 * If you love this plugin and would like to make a donation: 1. You're awesome and 2. You can find the donate button on the plugin page.
 
 == Screenshots ==
-1. The WordPress Database Reset plugin page.
+1. The WordPress Database Reset plugin page
 
 == Changelog ==
 = 2.3.2 =
