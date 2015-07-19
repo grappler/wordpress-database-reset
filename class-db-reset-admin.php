@@ -74,7 +74,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
       return isset( $this->request['db-reset-code-confirm'] ) &&
              $this->assert_request_variables_not_empty() &&
              $this->assert_correct_code() &&
-             check_admin_referer( $this->nonce, '_db-reset-nonce' );
+             wp_verify_nonce( $this->request[ '_db-reset-nonce' ], $this->nonce );
     }
 
     private function handle_after_reset() {
