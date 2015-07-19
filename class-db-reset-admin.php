@@ -73,8 +73,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     private function form_is_safe_to_submit() {
       return isset( $this->request['db-reset-code-confirm'] ) &&
              $this->assert_request_variables_not_empty() &&
-             $this->assert_correct_code() &&
-             wp_verify_nonce( $this->request[ '_db-reset-nonce' ], $this->nonce );
+             $this->assert_correct_code();
     }
 
     private function handle_after_reset() {
