@@ -1,7 +1,9 @@
 (function( $ ) {
   'use strict';
 
-  $( '#wp-tables' ).bsmSelect({
+  var tables = $( '#wp-tables' );
+
+  tables.bsmSelect({
     animate: true,
     title: dbReset.selectTable,
     plugins: [$.bsmSelect.plugins.compatibility()]
@@ -10,13 +12,13 @@
   $( '#select-all' ).on('click', function(e) {
     e.preventDefault();
 
-    $( '#wp-tables' ).children()
+    tables.children()
       .attr( 'selected', 'selected' )
       .end()
       .change();
   });
 
-  $( '#wp-tables' ).on( 'change', function() {
+  tables.on( 'change', function() {
     $( '#reactivate' ).showIfSelected( 'options' );
     $( '#disclaimer' ).showIfSelected( 'users' );
   });
@@ -35,7 +37,7 @@
   });
 
   $.fn.showIfSelected = function( selectValue ) {
-    $( this ).toggle( $( "option[value='" + selectValue + "']:selected", $( '#wp-tables' ) ).length > 0 );
+    $( this ).toggle( $( "option[value='" + selectValue + "']:selected", tables ).length > 0 );
   }
 
 })( jQuery );
