@@ -17,7 +17,8 @@
   });
 
   $( '#wp-tables' ).on( 'change', function() {
-    $( '#reactivate' ).toggle( $( "option[value='options']:selected", this ).length > 0 );
+    showIfValueSelected( $( '#reactivate' ), 'options' );
+    showIfValueSelected( $( '#user-disclaimer' ), 'users' );
   });
 
   $( '#db-reset-code-confirm' ).on( 'change keyup paste', function() {
@@ -32,5 +33,9 @@
       $( '#loader' ).show();
     }
   });
+
+  function showIfValueSelected( element, selectValue ) {
+    element.toggle( $( "option[value='" + selectValue + "']:selected", this ).length > 0 );
+  }
 
 })( jQuery );

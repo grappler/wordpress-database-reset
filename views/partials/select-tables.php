@@ -16,4 +16,6 @@
   </label>
 </p>
 
+<?php include( 'disclaimer.php' ) ?>
+
 <hr>
