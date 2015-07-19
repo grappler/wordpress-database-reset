@@ -17,8 +17,8 @@
   });
 
   $( '#wp-tables' ).on( 'change', function() {
-    showIfValueSelected( $( '#reactivate' ), 'options' );
-    showIfValueSelected( $( '#user-disclaimer' ), 'users' );
+    $( '#reactivate' ).showIfSelected( 'options' );
+    $( '#disclaimer' ).showIfSelected( 'users' );
   });
 
   $( '#db-reset-code-confirm' ).on( 'change keyup paste', function() {
@@ -34,8 +34,8 @@
     }
   });
 
-  function showIfValueSelected( element, selectValue ) {
-    element.toggle( $( "option[value='" + selectValue + "']:selected", this ).length > 0 );
+  $.fn.showIfSelected = function( selectValue ) {
+    $( this ).toggle( $( "option[value='" + selectValue + "']:selected", $( '#wp-tables' ) ).length > 0 );
   }
 
 })( jQuery );
