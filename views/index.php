@@ -8,4 +8,6 @@
     <?php include( 'partials/security-code.php' ) ?>
     <?php include( 'partials/submit-button.php' ) ?>
   </form>
+
+  <?php include( 'partials/donate.php' ) ?>
 </div>

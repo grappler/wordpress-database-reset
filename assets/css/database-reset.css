@@ -22,3 +22,11 @@
 #reactivate {
   color: #21759B;
 }
+
+.donate-button {
+  bottom: 6px;
+  position: absolute;
+  right: 0;
+  width: 170px;
+  outline: 0;
+}
