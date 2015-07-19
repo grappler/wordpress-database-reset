@@ -58,7 +58,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private function set_blog_data() {
       $this->blog_data = array(
-        'title' => get_option( 'blogname' ),
+        'name' => get_option( 'blogname' ),
         'public' => get_option( 'blog_public' )
       );
     }
@@ -88,7 +88,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private function install_wp() {
       return db_reset_install(
-        $this->blog_data[ 'title' ],
+        $this->blog_data[ 'name' ],
         $this->user->user_login,
         $this->user->user_email,
         $this->blog_data[ 'public' ]
