@@ -30,3 +30,7 @@ if ( file_exists( AUTOLOADER ) ) {
     array ( new DB_Reset_Manager( DB_RESET_VERSION ), 'run' )
   );
 }
+
+if ( is_command_line() ) {
+  require_once( __DIR__ . '/class-db-reset-command.php' );
+}
