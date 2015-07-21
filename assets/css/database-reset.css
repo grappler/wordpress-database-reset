@@ -24,9 +24,9 @@
 }
 
 #donate-button {
-  bottom: 6px;
+  bottom: 15px;
   position: absolute;
-  right: 0;
+  right: 15px;
   width: 170px;
   outline: 0;
 }
