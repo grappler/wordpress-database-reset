@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Check for command line constant
+ */
+function is_command_line() {
+  return ( defined( 'WP_CLI' ) && WP_CLI );
+}
+
+/**
  * Activation process
  * @return bool Should we proceed with plugin activation?
  */
