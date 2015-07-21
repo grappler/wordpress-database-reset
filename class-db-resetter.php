@@ -156,8 +156,10 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     private function reset_user_auth_cookie() {
-      wp_clear_auth_cookie();
-      wp_set_auth_cookie( $this->user->ID );
+      if ( ! is_command_line() ) {
+        wp_clear_auth_cookie();
+        wp_set_auth_cookie( $this->user->ID );
+      }
     }
 
     private function assert_theme_data_needs_reset() {
@@ -192,9 +194,9 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function set_user() {
       global $current_user;
 
-      $this->user = ( ! empty( $current_user ) ) ?
+      $this->user = ( 0 !== $current_user->ID ) ?
                     wp_get_current_user() :
-                    get_user_data( 1 );
+                    get_userdata( 1 );
     }
 
     public function get_user() {
