@@ -38,7 +38,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->back_up_tables( $this->preserved );
       $this->set_blog_data();
 
-      if ( $this->theme_data ) {
+      if ( 'true' === $this->theme_data ) {
         $this->set_theme_data();
       }
     }
