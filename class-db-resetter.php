@@ -59,7 +59,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function set_blog_data() {
       $this->blog_data = array(
         'name' => get_option( 'blogname' ),
-        'public' => get_option( 'blog_public' )
+        'public' => get_option( 'blog_public' ),
+        'site_url' => get_option( 'siteurl' )
       );
     }
 
@@ -91,7 +92,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
         $this->blog_data[ 'name' ],
         $this->user->user_login,
         $this->user->user_email,
-        $this->blog_data[ 'public' ]
+        $this->blog_data[ 'public' ],
+        $this->blog_data[ 'site_url' ]
       );
     }
 

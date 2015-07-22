@@ -55,7 +55,11 @@ require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
  * This is a copied and pasted version from /wp-admin/includes/upgrade.php.
  * Why am I doing this? Because there's no way of hooking into the WP install
  * method to stop the 'new blog' email from firing.
- * Literally removed one line. Weak sauce.
+ *
+ * Also, through the command line, the call to wp_guess_url() doesn't work
+ * and returns an empty value. We must pass the siteurl option to this
+ * function in order to be able to reset the options table without it
+ * completely breaking the site.
  *
  * @since 2.1.0
  *
@@ -68,7 +72,7 @@ require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
  * @param string $language      Optional. Language chosen. Default empty.
  * @return array Array keys 'url', 'user_id', 'password', and 'password_message'.
  */
-function db_reset_install( $blog_title, $user_name, $user_email, $public, $deprecated = '', $user_password = '', $language = '' ) {
+function db_reset_install( $blog_title, $user_name, $user_email, $public, $site_url, $deprecated = '', $user_password = '', $language = '' ) {
   if ( ! empty( $deprecated ) )
     _deprecated_argument( __FUNCTION__, '2.6' );
 
@@ -86,9 +90,10 @@ function db_reset_install( $blog_title, $user_name, $user_email, $public, $depre
     update_option( 'WPLANG', $language );
   }
 
-  $guessurl = wp_guess_url();
+  $guessurl = ( wp_guess_url() !== 'http:' ) ? wp_guess_url() : $site_url;
 
   update_option( 'siteurl', $guessurl );
+  update_option( 'home', $guessurl );
 
   // If not a public blog, don't ping.
   if ( ! $public )
