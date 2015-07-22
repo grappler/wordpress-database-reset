@@ -29,7 +29,7 @@ class DB_Reset_Command extends WP_CLI_Command {
    */
   public function database( $args, $assoc_args ) {
     $this->handle_before_reset();
-    // $this->reactivate_data( $assoc_args[ 'reactivate' ] );
+    $this->reactivate_data( $assoc_args[ 'reactivate' ] );
     $this->reset( $this->sanitize_input( $assoc_args[ 'tables' ] ) );
     $this->handle_after_reset();
   }
@@ -57,22 +57,11 @@ class DB_Reset_Command extends WP_CLI_Command {
   }
 
   private function sanitize_input( $string = '' ) {
-    if ( empty ( $string ) ) {
-      return $this->get_wp_tables();
+    if ( ! empty ( $string ) ) {
+      return explode( ',', preg_replace( '/\s+/', '', $string ) );
     }
 
-    $sanitized = array();
-    $array = array_flip( explode( ',', preg_replace( '/\s+/', '', $string ) ) );
-
-    array_walk( $array , array( $this, 'update_array_values' ), &$sanitized );
-
-    return $sanitized;
-  }
-
-  private function update_array_values( $key, $value, $array) {
-    global $wpdb;
-
-    $array[ $value ] = $wpdb->prefix . $value;
+    return array_keys( $this->get_wp_tables() );
   }
 
   private function get_wp_tables() {
@@ -91,8 +80,7 @@ class DB_Reset_Command extends WP_CLI_Command {
 
   private function reset( array $tables ) {
     foreach ( $tables as $key => $value ) {
-      $key = array( $key );
-      WP_CLI::success( sprintf( __( '%s', 'wp-reset' ), reset( $key ) ) );
+      WP_CLI::success( $value );
     }
 
     $this->resetter->reset( $tables );
