@@ -35,7 +35,7 @@ class DB_Reset_Command extends WP_CLI_Command {
   }
 
   /**
-   * Lists the database tables
+   * Lists the database tables.
    *
    * @subcommand list
    */
