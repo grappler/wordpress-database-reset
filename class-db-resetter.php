@@ -38,7 +38,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->back_up_tables( $this->preserved );
       $this->set_blog_data();
 
-      if ( 'true' === $this->theme_data ) {
+      if ( $this->should_restore_theme_data() ) {
         $this->set_theme_data();
       }
     }
@@ -62,6 +62,10 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
         'public' => get_option( 'blog_public' ),
         'site_url' => get_option( 'siteurl' )
       );
+    }
+
+    private function should_restore_theme_data() {
+      return ( 'true' === $this->theme_data );
     }
 
     private function set_theme_data() {
@@ -165,7 +169,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     private function assert_theme_data_needs_reset() {
-      if ( ! empty( $this->theme_data ) ) {
+      if ( $this->should_restore_theme_data() ) {
         $this->restore_theme_data();
       }
     }
