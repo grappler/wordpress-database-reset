@@ -20,6 +20,7 @@ The WordPress Database Reset plugin allows you to reset the database back to its
 * Extremely fast one click process to reset the WordPress database
 * Choose to reset the entire database or specific database tables
 * Secure and super simple to use
+* Prefer the command line? Reset the database in one command
 * Excellent for theme and plugin developers who need to clean the database of any unnecessary content
 
 **Support Forum**
@@ -37,6 +38,14 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 1. The WordPress Database Reset plugin page
 
 == Changelog ==
+= 3.0.0 =
+* Completely re-written from scratch
+* Add extended WP_CLI command class
+* Clean up admin interface
+* Remove unnecessary help tabs
+* Submit button is now deactivated until user inputs security code
+* Add PayPal donation button
+
 = 2.3.2 =
 * Add option to keep active theme, thanks to Ulrich Pogson
 * Adhere to WordPress PHP coding syntax standards
