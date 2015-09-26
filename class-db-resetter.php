@@ -65,7 +65,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     private function should_restore_theme_data() {
-      return ( 'true' === $this->theme_data );
+      return ( 'true' === $this->reactivate );
     }
 
     private function set_theme_data() {
@@ -185,7 +185,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     }
 
     public function set_reactivate( $with_theme_data ) {
-      $this->theme_data = $with_theme_data;
+      $this->reactivate = $with_theme_data;
     }
 
     private function set_wp_tables() {
