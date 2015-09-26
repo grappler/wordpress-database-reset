@@ -51,7 +51,7 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 * Submit button is now deactivated until user inputs security code
 * Add PayPal donation button
 * Remove outdated localization files
-* Update the text domain to match slug; for translate.wordpress.org
+* Update the text domain to match slug for translate.wordpress.org
 
 = 2.3.2 =
 * Add option to keep active theme, thanks to Ulrich Pogson
