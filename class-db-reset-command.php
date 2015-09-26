@@ -41,7 +41,7 @@ class DB_Reset_Command extends WP_CLI_Command {
    * @subcommand list
    */
   public function _list() {
-    $tables = $this->resetter->get_wp_tables();
+    $tables = $this->get_wp_tables();
 
     foreach( $tables as $key => $value ) {
       WP_CLI::line( $key );
