@@ -4,8 +4,8 @@ Contributors: mousesports
 Tags: wordpress, database, reset, restore, setup, developer, theme, default, secure
 License: GPL2
 Requires at least: 3.0
-Tested up to: 4.2.2
-Stable tag: 3.0
+Tested up to: 4.3.1
+Stable tag: 3.0.1
 
 A plugin that allows you to skip the 5 minute installation and reset WordPress's database back to its original state.
 
@@ -43,6 +43,9 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 1. The WordPress Database Reset plugin page
 
 == Changelog ==
+= 3.0.1 =
+* Fix plugin disabled after update, thanks to Ulrich Pogson
+
 = 3.0.0 =
 * Completely re-written from scratch
 * Add extended WP_CLI command class
