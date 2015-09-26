@@ -1,5 +1,5 @@
 <div class="wrap card">
-  <h2><?php _e( 'Database Reset', 'wp-reset' ) ?></h2>
+  <h2><?php _e( 'Database Reset', 'wordpress-database-reset' ) ?></h2>
 
   <?php include( 'partials/notice.php' ) ?>
 

@@ -31,7 +31,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
         return;
       }
 
-      throw new Exception( __( 'You did not select any database tables', 'wp-reset' ) );
+      throw new Exception( __( 'You did not select any database tables', 'wordpress-database-reset' ) );
     }
 
     private function set_backup() {

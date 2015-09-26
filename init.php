@@ -19,7 +19,7 @@ require_once( DB_RESET_PATH . '/lib/helpers.php' );
 
 register_activation_hook( __FILE__, 'db_reset_activate' );
 
-load_plugin_textdomain( 'wp-reset', false, DB_RESET_NAME . '/languages/' );
+load_plugin_textdomain( 'wordpress-database-reset', false, DB_RESET_NAME . '/languages/' );
 
 if ( file_exists( AUTOLOADER ) ) {
   require_once( AUTOLOADER );

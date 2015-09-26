@@ -26,11 +26,11 @@ function db_reset_activate() {
 function db_reset_activation_checks() {
   if ( ! function_exists( 'spl_autoload_register' ) &&
         version_compare( phpversion(), '5.3', '<' ) ) {
-    return __( 'The WordPress Database Reset plugin requires at least PHP 5.3!', 'wp-reset' );
+    return __( 'The WordPress Database Reset plugin requires at least PHP 5.3!', 'wordpress-database-reset' );
   }
 
   if ( version_compare( get_bloginfo( 'version' ), '3.0', '<' ) ) {
-    return __( 'The WordPress Database Reset plugin requires at least WordPress 3.0!', 'wp-reset' );
+    return __( 'The WordPress Database Reset plugin requires at least WordPress 3.0!', 'wordpress-database-reset' );
   }
 
   return true;

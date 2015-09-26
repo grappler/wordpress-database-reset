@@ -82,7 +82,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
         exit;
       }
 
-      $this->notice_success = __( 'The selected tables were reset', 'wp-reset' );
+      $this->notice_success = __( 'The selected tables were reset', 'wordpress-database-reset' );
     }
 
     private function assert_request_variables_not_empty() {
@@ -101,7 +101,7 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
     private function assert_correct_code() {
       if ( $this->request['db-reset-code'] !==
            $this->request['db-reset-code-confirm'] ) {
-        $this->notice_error = __( 'You entered the wrong security code', 'wp-reset' );
+        $this->notice_error = __( 'You entered the wrong security code', 'wordpress-database-reset' );
         return false;
       }
 
@@ -110,8 +110,8 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     public function add_tools_menu() {
       $plugin_page = add_management_page(
-        __( 'Database Reset', 'wp-reset' ),
-        __( 'Database Reset', 'wp-reset' ),
+        __( 'Database Reset', 'wordpress-database-reset' ),
+        __( 'Database Reset', 'wordpress-database-reset' ),
         'update_core',
         'database-reset',
         array( $this, 'render' )
@@ -179,8 +179,8 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     private function load_javascript_vars() {
       return array(
-        'confirmAlert' => __( 'Are you sure you want to continue?', 'wp-reset' ),
-        'selectTable' => __( 'Select Tables', 'wp-reset' )
+        'confirmAlert' => __( 'Are you sure you want to continue?', 'wordpress-database-reset' ),
+        'selectTable' => __( 'Select Tables', 'wordpress-database-reset' )
       );
     }
 

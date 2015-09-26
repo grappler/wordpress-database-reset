@@ -1,5 +1,5 @@
 <p>
-  2. <?php _e( 'Enter the security code into the text box', 'wp-reset' ) ?>:
+  2. <?php _e( 'Enter the security code into the text box', 'wordpress-database-reset' ) ?>:
   <span id="security-code"><?php echo $this->code ?></span>
 </p>
 

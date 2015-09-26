@@ -89,10 +89,10 @@ class DB_Reset_Command extends WP_CLI_Command {
   }
 
   private function output_successful_notice() {
-    WP_CLI::line( __( 'The selected tables were reset', 'wp-reset' ) );
+    WP_CLI::line( __( 'The selected tables were reset', 'wordpress-database-reset' ) );
 
     if ( 'true' === $this->reactivate ) {
-      WP_CLI::line( __( 'The current theme and plugins were reactivated','wp-reset' ) );
+      WP_CLI::line( __( 'The current theme and plugins were reactivated','wordpress-database-reset' ) );
     }
   }
 
