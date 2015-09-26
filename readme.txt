@@ -45,6 +45,7 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 == Changelog ==
 = 3.0.1 =
 * Fix plugin disabled after update, thanks to Ulrich Pogson
+* Update the pot file
 
 = 3.0.0 =
 * Completely re-written from scratch
