@@ -23,6 +23,10 @@ The WordPress Database Reset plugin allows you to reset the database back to its
 * Prefer the command line? Reset the database in one command
 * Excellent for theme and plugin developers who need to clean the database of any unnecessary content
 
+**Command Line**
+Once activated, you can use the WordPress Database Reset plugin with [WordPress CLI](http://wp-cli.org/).
+Full documentation for the commands can be found on [Github](https://github.com/chrisberthe/wordpress-database-reset#command-line)
+
 **Support Forum**
 
 Create a new post in the [WordPress Database Reset support forum](https://wordpress.org/support/plugin/wordpress-database-reset).
