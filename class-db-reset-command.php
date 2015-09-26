@@ -5,6 +5,7 @@
  */
 class DB_Reset_Command extends WP_CLI_Command {
 
+  private $reactivate;
   private $reporting;
 
   public function __construct() {
@@ -73,9 +74,9 @@ class DB_Reset_Command extends WP_CLI_Command {
       $string = 'true';
     }
 
-    $boolean = ( $string ) ? 'true' : 'false';
+    $this->reactivate = ( $string ) ? 'true' : 'false';
 
-    $this->resetter->set_reactivate( $boolean );
+    $this->resetter->set_reactivate( $this->reactivate );
   }
 
   private function reset( array $tables ) {
@@ -84,7 +85,15 @@ class DB_Reset_Command extends WP_CLI_Command {
     }
 
     $this->resetter->reset( $tables );
+    $this->output_successful_notice();
+  }
+
+  private function output_successful_notice() {
     WP_CLI::line( __( 'The selected tables were reset', 'wp-reset' ) );
+
+    if ( 'true' === $this->reactivate ) {
+      WP_CLI::line( __( 'The current theme and plugins were reactivated','wp-reset' ) );
+    }
   }
 
   private function handle_after_reset() {
