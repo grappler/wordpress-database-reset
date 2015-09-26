@@ -6,7 +6,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private $backup;
     private $blog_data;
-    private $theme_data;
+    private $theme_plugin_data;
     private $preserved;
     private $selected;
     private $reactivate;
@@ -39,8 +39,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->back_up_tables( $this->preserved );
       $this->set_blog_data();
 
-      if ( $this->should_restore_theme_data() ) {
-        $this->set_theme_data();
+      if ( $this->should_restore_theme_plugin_data() ) {
+        $this->set_theme_plugin_data();
       }
     }
 
@@ -65,12 +65,12 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       );
     }
 
-    private function should_restore_theme_data() {
+    private function should_restore_theme_plugin_data() {
       return ( 'true' === $this->reactivate );
     }
 
-    private function set_theme_data() {
-      $this->theme_data = array(
+    private function set_theme_plugin_data() {
+      $this->theme_plugin_data = array(
         'active-plugins' => get_option( 'active_plugins' ),
         'current-theme' => get_option( 'current_theme' ),
         'stylesheet' => get_option( 'stylesheet' ),
@@ -128,7 +128,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       $this->restore_backup_tables( $this->backup );
       $this->remove_user_session_tokens();
       $this->reset_user_auth_cookie();
-      $this->assert_theme_data_needs_reset();
+      $this->assert_theme_plugin_data_needs_reset();
     }
 
     private function delete_backup_table_rows( array $tables ) {
@@ -169,24 +169,24 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       }
     }
 
-    private function assert_theme_data_needs_reset() {
-      if ( $this->should_restore_theme_data() ) {
-        $this->restore_theme_data();
+    private function assert_theme_plugin_data_needs_reset() {
+      if ( $this->should_restore_theme_plugin_data() ) {
+        $this->restore_theme_plugin_data();
       }
     }
 
-    private function restore_theme_data() {
-      update_option( 'active_plugins', $this->theme_data['active-plugins'] );
-      update_option( 'template', $this->theme_data['template'] );
-      update_option( 'stylesheet', $this->theme_data['stylesheet'] );
+    private function restore_theme_plugin_data() {
+      update_option( 'active_plugins', $this->theme_plugin_data['active-plugins'] );
+      update_option( 'template', $this->theme_plugin_data['template'] );
+      update_option( 'stylesheet', $this->theme_plugin_data['stylesheet'] );
 
-      if ( ! empty( $this->theme_data['current-theme'] ) ) {
-        update_option( 'current_theme', $this->theme_data['current-theme'] );
+      if ( ! empty( $this->theme_plugin_data['current-theme'] ) ) {
+        update_option( 'current_theme', $this->theme_plugin_data['current-theme'] );
       }
     }
 
-    public function set_reactivate( $with_theme_data ) {
-      $this->reactivate = $with_theme_data;
+    public function set_reactivate( $with_theme_plugin_data ) {
+      $this->reactivate = $with_theme_plugin_data;
     }
 
     private function set_wp_tables() {
