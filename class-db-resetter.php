@@ -9,6 +9,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private $theme_data;
     private $preserved;
     private $selected;
+    private $reactivate;
     private $user;
     private $wp_tables;
 
