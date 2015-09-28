@@ -113,14 +113,6 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
           $this->user->user_pass, $this->user->ID
         )
       );
-
-      $this->remove_password_nag( $this->user->ID );
-    }
-
-    private function remove_password_nag( $user_id ) {
-      if ( get_user_meta( $user_id, 'default_password_nag' ) ) {
-        delete_user_meta( $user_id, 'default_password_nag' );
-      }
     }
 
     private function restore_backup() {
