@@ -3,7 +3,7 @@
 Contributors: mousesports
 Tags: wordpress, database, reset, restore, setup, developer, theme, default, secure
 License: GPL2
-Requires at least: 3.0
+Requires at least: 4.2
 Tested up to: 4.3.1
 Stable tag: 3.0.1
 
