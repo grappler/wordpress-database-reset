@@ -5,7 +5,6 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
   class DB_Reset_Admin {
 
     private $code;
-    private $nonce;
     private $notice_error;
     private $notice_success;
     private $request;
@@ -28,17 +27,12 @@ if ( ! class_exists( 'DB_Reset_Admin' ) ) :
 
     private function set_view_variables() {
       $this->set_code();
-      $this->set_nonce();
       $this->set_user();
       $this->set_wp_tables();
     }
 
     private function set_code() {
       $this->code = $this->generate_code();
-    }
-
-    private function set_nonce() {
-      $this->nonce = strtolower( str_replace( '_', '-', __CLASS__ ) );
     }
 
     private function set_user() {
