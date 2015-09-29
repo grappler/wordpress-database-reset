@@ -7,6 +7,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private $backup;
     private $blog_data;
     private $theme_plugin_data;
+    private $user_data;
     private $preserved;
     private $selected;
     private $reactivate;
@@ -37,6 +38,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function set_backup() {
       $this->set_tables_to_preserve( $this->selected );
       $this->back_up_tables( $this->preserved );
+      $this->set_user_session_tokens();
       $this->set_blog_data();
 
       if ( $this->should_restore_theme_plugin_data() ) {
@@ -54,6 +56,14 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
       foreach ( $tables as $table ) {
         $this->backup[ $table ] = $wpdb->get_results( "SELECT * FROM {$table}" );
+      }
+    }
+
+    private function set_user_session_tokens() {
+      if ( get_user_meta( $this->user->ID, 'session_tokens' ) ) {
+        $this->user_data = array(
+          'session_tokens' => get_user_meta( $this->user->ID, 'session_tokens', true )
+        );
       }
     }
 
@@ -118,8 +128,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
     private function restore_backup() {
       $this->delete_backup_table_rows( $this->preserved );
       $this->restore_backup_tables( $this->backup );
-      $this->remove_user_session_tokens();
-      $this->reset_user_auth_cookie();
+      $this->restore_user_session_tokens();
       $this->assert_theme_plugin_data_needs_reset();
     }
 
@@ -148,17 +157,8 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       }
     }
 
-    private function remove_user_session_tokens() {
-      if ( get_user_meta( $this->user->ID, 'session_tokens' ) ) {
-        delete_user_meta( $this->user->ID, 'session_tokens' );
-      }
-    }
-
-    private function reset_user_auth_cookie() {
-      if ( ! is_command_line() ) {
-        wp_clear_auth_cookie();
-        wp_set_auth_cookie( $this->user->ID );
-      }
+    private function restore_user_session_tokens() {
+      add_user_meta( $this->user->ID, 'session_tokens', $this->user_data['session_tokens'] );
     }
 
     private function assert_theme_plugin_data_needs_reset() {
