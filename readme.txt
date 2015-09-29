@@ -43,6 +43,13 @@ Create a new post in the [WordPress Database Reset support forum](https://wordpr
 1. The WordPress Database Reset plugin page
 
 == Changelog ==
+= 3.0.2 =
+* Fix for plugin page not showing up in tools menu (on some hosting providers)
+* Update how session tokens were being restored
+* Remove unnecessary nonce
+* Bump 'requires at least' to version 4.2
+* Change 'theme_data' to 'theme_plugin_data'
+
 = 3.0.1 =
 * Fix plugin disabled after update, thanks to Ulrich Pogson
 * Update the pot file
