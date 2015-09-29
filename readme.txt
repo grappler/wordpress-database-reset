@@ -5,7 +5,7 @@ Tags: wordpress, database, reset, restore, setup, developer, theme, default, sec
 License: GPL2
 Requires at least: 4.2
 Tested up to: 4.3.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 
 A plugin that allows you to skip the 5 minute installation and reset WordPress's database back to its original state.
 
