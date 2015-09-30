@@ -6,11 +6,11 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private $backup;
     private $blog_data;
+    private $preserved;
+    private $reactivate;
+    private $selected;
     private $theme_plugin_data;
     private $user_data;
-    private $preserved;
-    private $selected;
-    private $reactivate;
     private $user;
     private $wp_tables;
 
