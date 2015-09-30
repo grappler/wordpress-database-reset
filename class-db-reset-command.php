@@ -25,7 +25,7 @@ class DB_Reset_Command extends WP_CLI_Command {
    *
    * ## EXAMPLES
    * wp reset database
-   * wp reset database --tables='users,posts,comments'
+   * wp reset database --tables='users, posts, comments'
    * wp reset database --no-reactivate
    */
   public function database( $args, $assoc_args ) {
@@ -92,7 +92,7 @@ class DB_Reset_Command extends WP_CLI_Command {
     WP_CLI::line( __( 'The selected tables were reset', 'wordpress-database-reset' ) );
 
     if ( 'true' === $this->reactivate ) {
-      WP_CLI::line( __( 'The current theme and plugins were reactivated','wordpress-database-reset' ) );
+      WP_CLI::line( __( 'The current theme and plugins were reactivated', 'wordpress-database-reset' ) );
     }
   }
 
