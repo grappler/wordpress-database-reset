@@ -127,7 +127,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
 
     private function restore_backup() {
       $this->delete_backup_table_rows( $this->preserved );
-      $this->restore_backup_tables( $this->backup );
+      $this->restore_backup_table_rows( $this->backup );
       $this->restore_user_session_tokens();
       $this->assert_theme_plugin_data_needs_reset();
     }
@@ -140,7 +140,7 @@ if ( ! class_exists( 'DB_Resetter' ) ) :
       }
     }
 
-    private function restore_backup_tables( array $tables ) {
+    private function restore_backup_table_rows( array $tables ) {
       global $wpdb;
 
       foreach ( $tables as $table => $data ) {
