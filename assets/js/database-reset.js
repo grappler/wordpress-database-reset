@@ -23,8 +23,10 @@
     $( '#disclaimer' ).showIfSelected( 'users' );
   });
 
-  $( '#db-reset-code-confirm' ).on( 'change keyup paste', function() {
-    $( '#db-reset-submit' ).prop( 'disabled', $( this ).val() !== $( "#security-code" ).text() );
+  $( '#db-reset-code-confirm' ).on( 'change keyup paste drop', function() {
+    setTimeout($.proxy(function() {
+      $( '#db-reset-submit' ).prop( 'disabled', $( this ).val() !== $( "#security-code" ).text() );
+    }, this), 0);
   });
 
   $( '#db-reset-submit' ).on('click', function(e) {
