@@ -6,6 +6,7 @@
 .bsmSelect {
   /* the newly created regular 'select' */
   display: inline;
+  max-width: 65%;
 }
 
 .bsmOptionDisabled {
